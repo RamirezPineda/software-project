@@ -6,6 +6,7 @@ import MainContent from "../../components/MainContent";
 
 const Dashboard = lazy(() => import("./Dashboard/Dashboard"));
 const Users = lazy(() => import("./Users/Users"));
+import { EditarCuento } from "./Cuentos/EditarCuento";
 
 function Private() {
   return (
@@ -22,6 +23,8 @@ function Private() {
         />
         <Route path={PrivateRoutes.DASHBOARD} element={<Dashboard />} />
         <Route path={PrivateRoutes.USERS} element={<Users />} />
+        <Route path={PrivateRoutes.EDITARCUENTO} element={<EditarCuento />} />
+        
       </Route>
       <Route path="*" element={<div>PAGE NOT FOUNT</div>} />
     </Routes>

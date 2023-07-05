@@ -8,6 +8,7 @@ import {
   RiLogoutCircleLine,
   RiUserLine,
   RiAddLine,
+  RiEditBoxLine,
 } from "react-icons/ri";
 import { resetUser } from "../redux/states/user.state";
 
@@ -60,6 +61,20 @@ function Sidebar() {
               >
                 <RiUserLine />
                 Users
+              </NavLink>
+            </li>
+
+            <li>
+              <NavLink
+                to="/private/cuento/editar"
+                className={({ isActive }) =>
+                  isActive
+                    ? "flex items-center mb-1 gap-4 py-2 px-4 rounded-lg bg-[#131517] "
+                    : "flex items-center mb-1 gap-4 hover:bg-[#131517] transition-colors py-2 px-4 rounded-lg"
+                }
+              >
+                <RiEditBoxLine />
+                Editar Cuento
               </NavLink>
             </li>
           </ul>
