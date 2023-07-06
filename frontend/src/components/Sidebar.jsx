@@ -77,6 +77,34 @@ function Sidebar() {
                 Editar Cuento
               </NavLink>
             </li>
+            {/* Crear cuento */}
+            <li>
+              <NavLink
+                to="/private/cuento/crear"
+                className={({ isActive }) =>
+                  isActive
+                    ? "flex items-center mb-1 gap-4 py-2 px-4 rounded-lg bg-[#131517] "
+                    : "flex items-center mb-1 gap-4 hover:bg-[#131517] transition-colors py-2 px-4 rounded-lg"
+                }
+              >
+                <RiAddLine />
+                Crear Cuento
+              </NavLink>
+            </li>
+            {/* Mis Cuentos */}
+            <li>
+              <NavLink
+                to="/private/cuento/mis-cuentos"
+                className={({ isActive }) =>
+                  isActive
+                    ? "flex items-center mb-1 gap-4 py-2 px-4 rounded-lg bg-[#131517] "
+                    : "flex items-center mb-1 gap-4 hover:bg-[#131517] transition-colors py-2 px-4 rounded-lg"
+                }
+              >
+                <RiAddLine />
+                Mis Cuentos
+              </NavLink>
+            </li>
           </ul>
         </div>
 
