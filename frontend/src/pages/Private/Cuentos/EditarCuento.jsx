@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import JoditEditor from "jodit-react";
 import htmlDocx from "html-docx-js/dist/html-docx";
 import { useDispatch, useSelector } from "react-redux";
@@ -123,7 +123,9 @@ export const EditarCuento = () => {
             config={config}
             tabIndex={1} // tabIndex of textarea
             onBlur={(newContent) => dispatch(saveDocument(newContent))} // preferred to use only this option to update the content for performance reasons
-            onChange={(newContent) => {}}
+            onChange={(newContent) => {
+              console.log(newContent);
+            }}
           />
         </div>
       </div>
