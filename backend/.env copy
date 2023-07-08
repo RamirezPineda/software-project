@@ -6,6 +6,12 @@ JWT_SECRET=
 
 OPENAI_API_KEY=
 
+BUCKET=
+
+AWS_ACCESS_KEY_ID =
+
+aws_secret_access_key =
+
 # This was inserted by `prisma init`:
 # Environment variables declared in this file are automatically made available to Prisma.
 # See the documentation for more detail: https://pris.ly/d/prisma-schema#accessing-environment-variables-from-the-schema

@@ -2,8 +2,8 @@ import TextoIA from '../services/textIA.service.js';
 
 const generarTexto = async (req, res) => {
     try {
-        const { personaje, nombrePersonaje, tema, reflexion, idUser } = req.body;
-        const newTexto = await TextoIA.generarTexto({ personaje, nombrePersonaje, tema, reflexion, idUser });
+        const { personaje, nombrePersonaje, tema, reflexion,narrador, idUser } = req.body;
+        const newTexto = await TextoIA.generarTexto({ personaje, nombrePersonaje, tema, reflexion, narrador,idUser });
         if (!newTexto)
             return res.status(400).json({ message: "El texto no se pudo generar" });
 
@@ -22,7 +22,7 @@ const getTextos = async (req, res) => {
         return res.status(200).json(textos);
     } catch (error) {
         console.log("Error Server: ", error);
-        return es.status(500).json(error);
+        return res.status(500).json(error);
     }
 };
 
@@ -35,7 +35,7 @@ const getTexto = async (req, res) => {
         return res.status(200).json(texto);
     } catch (error) {
         console.log("Error Server: ", error);
-        return es.status(500).json(error);
+        return res.status(500).json(error);
     }
 };
 
@@ -48,7 +48,7 @@ const getTextoUser = async (req, res) => {
         return res.status(200).json(texto);
     } catch (error) {
         console.log("Error Server: ", error);
-        return es.status(500).json(error);
+        return res.status(500).json(error);
     }
 };
 

@@ -27,23 +27,23 @@ function Sidebar() {
     <>
       {/* Sidebar */}
       <div
-        className={`fixed top-0 w-3/4 xl:left-0 md:w-64 h-full bg-[#1E1F25]  p-8 flex flex-col justify-between z-50 transition-all 
+        className={`fixed top-0 w-3/4 xl:left-0 md:w-64 h-full bg-white p-8 flex flex-col justify-between z-50 transition-all 
         ${showMenu ? "left-0" : "-left-full"}`}
       >
         {/* Navegacion  */}
         <div>
-          <h1 className="text-2xl text-center text-white uppercase font-bold mb-2">
+          <h1 className="text-2xl text-center text-black uppercase font-bold mb-2">
             Software Project
           </h1>
-          <p className="text-gray-400 text-center mb-8">User: {user.email}</p>
+          <p className="text-gray-500 text-center mb-8">User: {user.email}</p>
           <ul>
             <li>
               <NavLink
                 to="/private/dashboard"
                 className={({ isActive }) =>
                   isActive
-                    ? "flex items-center mb-1 gap-4 py-2 px-4 rounded-lg bg-[#131517] "
-                    : "flex items-center mb-1 gap-4 hover:bg-[#131517] transition-colors py-2 px-4 rounded-lg"
+                    ? "flex items-center mb-1 gap-4 py-2 px-4 rounded-lg bg-gray-800 text-white"
+                    : "flex items-center mb-1 gap-4 hover:bg-gray-800 hover:text-white transition-colors py-2 px-4 rounded-lg"
                 }
               >
                 <RiAddLine />
@@ -55,8 +55,8 @@ function Sidebar() {
                 to="/private/users"
                 className={({ isActive }) =>
                   isActive
-                    ? "flex items-center mb-1 gap-4 py-2 px-4 rounded-lg bg-[#131517] "
-                    : "flex items-center mb-1 gap-4 hover:bg-[#131517] transition-colors py-2 px-4 rounded-lg"
+                    ? "flex items-center mb-1 gap-4 py-2 px-4 rounded-lg bg-gray-800 text-white"
+                    : "flex items-center mb-1 gap-4 hover:bg-gray-800 hover:text-white transition-colors py-2 px-4 rounded-lg"
                 }
               >
                 <RiUserLine />
@@ -69,8 +69,8 @@ function Sidebar() {
                 to="/private/cuento/editar"
                 className={({ isActive }) =>
                   isActive
-                    ? "flex items-center mb-1 gap-4 py-2 px-4 rounded-lg bg-[#131517] "
-                    : "flex items-center mb-1 gap-4 hover:bg-[#131517] transition-colors py-2 px-4 rounded-lg"
+                    ? "flex items-center mb-1 gap-4 py-2 px-4 rounded-lg bg-gray-800 text-white"
+                    : "flex items-center mb-1 gap-4 hover:bg-gray-800 hover:text-white transition-colors py-2 px-4 rounded-lg"
                 }
               >
                 <RiEditBoxLine />
@@ -83,8 +83,8 @@ function Sidebar() {
                 to="/private/cuento/crear"
                 className={({ isActive }) =>
                   isActive
-                    ? "flex items-center mb-1 gap-4 py-2 px-4 rounded-lg bg-[#131517] "
-                    : "flex items-center mb-1 gap-4 hover:bg-[#131517] transition-colors py-2 px-4 rounded-lg"
+                    ? "flex items-center mb-1 gap-4 py-2 px-4 rounded-lg bg-gray-800 text-white"
+                    : "flex items-center mb-1 gap-4 hover:bg-gray-800 hover:text-white transition-colors py-2 px-4 rounded-lg"
                 }
               >
                 <RiAddLine />
@@ -97,8 +97,8 @@ function Sidebar() {
                 to="/private/cuento/mis-cuentos"
                 className={({ isActive }) =>
                   isActive
-                    ? "flex items-center mb-1 gap-4 py-2 px-4 rounded-lg bg-[#131517] "
-                    : "flex items-center mb-1 gap-4 hover:bg-[#131517] transition-colors py-2 px-4 rounded-lg"
+                    ? "flex items-center mb-1 gap-4 py-2 px-4 rounded-lg bg-gray-800 text-white"
+                    : "flex items-center mb-1 gap-4 hover:bg-gray-800 hover:text-white transition-colors py-2 px-4 rounded-lg"
                 }
               >
                 <RiAddLine />
@@ -113,7 +113,8 @@ function Sidebar() {
             dispatch(resetUser());
             navigate("/login", { replace: true });
           }}
-          className="flex items-center gap-2 hover:bg-[#131517] transition-colors py-2 px-4 rounded-lg"
+          className="
+            flex items-center mb-1 gap-4 hover:bg-gray-800 hover:text-white transition-colors py-2 px-4 rounded-lg"
         >
           <RiLogoutCircleLine />
           <div>
@@ -125,12 +126,13 @@ function Sidebar() {
       {/* Btn menu movil */}
       <button
         onClick={toggleMenu}
-        className="xl:hidden fixed bottom-6 right-6 bg-[#131517] ring-1 ring-white  p-4 rounded-full"
+        className="xl:hidden fixed bottom-6 right-6 bg-gray-800 ring-1 ring-white p-4 rounded-full"
       >
         {showMenu ? <RiCloseLine /> : <RiMenuFill />}
       </button>
     </>
   );
+
 }
 
 export default Sidebar;
