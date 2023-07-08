@@ -1,11 +1,10 @@
 import "dotenv/config";
 import AWS from 'aws-sdk';
-//const credentials = new AWS.SharedIniFileCredentials({ profile: 'default' });
+
 const credentials = new AWS.Credentials({
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
 });
-
 AWS.config.credentials = credentials;
 
 

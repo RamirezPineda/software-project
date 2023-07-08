@@ -6,7 +6,7 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -31,6 +31,7 @@ model Cuento {
   reflexion String
   titulo    String
   texto     String
+  audio     String
   author    User    @relation(fields: [authorId], references: [id])
   authorId  Int
   createdAt DateTime @default(now())
