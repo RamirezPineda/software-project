@@ -1,8 +1,7 @@
-import { useState } from "react";
+import { useState , useEffect} from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 
-import reactLogo from "../../assets/react.svg";
 import { PrivateRoutes } from "../../constants/routes";
 
 import { createUser } from "../../redux/states/user.state";
@@ -13,6 +12,13 @@ function Login() {
   const { loginUser } = useLogin();
   const navigate = useNavigate();
   const [messageError, setMessageError] = useState("");
+
+  useEffect(() => {
+    if (localStorage.getItem("user")) {
+      navigate(PrivateRoutes.PRIVATE, { replace: true });
+    }
+  }, []);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -36,17 +42,18 @@ function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-zinc-900 text-gray-300 flex items-center justify-center p-4">
-      <div className="max-w-lg ">
+    <div className="min-h-screen bg-white text-gray-700 flex items-center justify-center p-4">
+      <div className="max-w-lg">
         <div className="flex justify-center mb-8">
-
-          <img src={reactLogo} alt="react logo" width={100} height={120} />
+          <a href="https://www.freepnglogos.com/pics/book" title="Image from freepnglogos.com">
+            <img src="https://www.freepnglogos.com/uploads/book-png/big-open-book-outline-transparent-34.png" width="200" alt="big open book outline transparent" />
+          </a>
         </div>
-        <div className="bg-zinc-800 w-full rounded-lg p-8 mb-8">
+        <div className="bg-white w-full rounded-lg p-8 mb-8">
           <div className="flex flex-col items-center gap-1 mb-8">
-            <h1 className="text-xl text-white">Login</h1>
-            <p className="text-gray-300 text-sm">
-              Ingresa tu correo electronico y contraseña
+            <h1 className="text-xl text-black">Login</h1>
+            <p className="text-gray-700 text-sm">
+              Ingresa tu correo electrónico y contraseña
             </p>
             <p className="text-red-500">{messageError}</p>
           </div>
@@ -56,8 +63,8 @@ function Login() {
                 id="email"
                 name="email"
                 type="email"
-                className="bg-zinc-800 w-full border border-neutral-700 py-2 px-10 rounded-md outline-none"
-                placeholder="Correo electronico"
+                className="bg-white w-full border border-gray-300 py-2 px-10 rounded-md outline-none"
+                placeholder="Correo electrónico"
               />
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -79,7 +86,7 @@ function Login() {
                 id="password"
                 name="password"
                 type="password"
-                className="bg-zinc-800  w-full border border-neutral-700  py-2 px-10 rounded-md outline-none"
+                className="bg-white w-full border border-gray-300 py-2 px-10 rounded-md outline-none"
                 placeholder="Contraseña"
               />
               <svg
@@ -107,7 +114,7 @@ function Login() {
             </div>
           </form>
         </div>
-        <span className="flex items-center justify-center gap-2 text-[#d1d5db]">
+        <span className="flex items-center justify-center gap-2 text-gray-600">
           <Link className="text-blue-500" to={"/register"}>
             Crear una cuenta
           </Link>
@@ -115,6 +122,7 @@ function Login() {
       </div>
     </div>
   );
+
 }
 
 export default Login;

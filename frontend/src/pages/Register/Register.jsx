@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
 import { PublicRoutes } from "../../constants/routes";
 import { useRegister } from "../../hooks/useAuth.hook";
+
+import { PrivateRoutes } from "../../constants/routes";
 
 function Register() {
   const navigate = useNavigate();
@@ -10,6 +12,12 @@ function Register() {
 
   const [messageError, setMessageError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (localStorage.getItem("user")) {
+      navigate(PrivateRoutes.PRIVATE, { replace: true });
+    }
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -36,11 +44,11 @@ function Register() {
   };
 
   return (
-    <div className="min-h-screen bg-zinc-900 text-gray-300 flex items-center justify-center p-4">
-      <div className="max-w-lg ">
-        <div className="bg-zinc-800 w-full rounded-lg p-8 mb-8">
+    <div className="min-h-screen bg-white text-gray-700 flex items-center justify-center p-4">
+      <div className="max-w-lg">
+        <div className="bg-white w-full rounded-lg p-8 mb-8">
           <div className="flex flex-col items-center gap-1 mb-8">
-            <h1 className="text-xl text-white">Registro</h1>
+            <h1 className="text-xl text-black">Registro</h1>
             <p className="text-gray-400 text-sm">
               Ingresa los datos solicitados
             </p>
@@ -52,7 +60,7 @@ function Register() {
                 id="name"
                 name="name"
                 type="name"
-                className="bg-zinc-800 w-full border border-neutral-700 py-2 px-10 rounded-md outline-none"
+                className="bg-white w-full border border-gray-300 py-2 px-10 rounded-md outline-none"
                 placeholder="Nombre completo"
                 required={true}
               />
@@ -76,8 +84,8 @@ function Register() {
                 id="email"
                 name="email"
                 type="email"
-                className="bg-zinc-800 w-full border border-neutral-700 py-2 px-10 rounded-md outline-none"
-                placeholder="Correo electronico"
+                className="bg-white w-full border border-gray-300 py-2 px-10 rounded-md outline-none"
+                placeholder="Correo electrónico"
                 required={true}
               />
               <svg
@@ -100,7 +108,7 @@ function Register() {
                 id="password"
                 name="password"
                 type="password"
-                className="bg-zinc-800  w-full border border-neutral-700  py-2 px-10 rounded-md outline-none"
+                className="bg-white w-full border border-gray-300 py-2 px-10 rounded-md outline-none"
                 placeholder="Contraseña"
                 required={true}
               />
@@ -123,14 +131,14 @@ function Register() {
               <button
                 disabled={isLoading}
                 type="submit"
-                className="w-full bg-emerald-500 text-white  py-2 px-4 rounded-md hover:bg-emerald-600  transition-colors"
+                className="w-full bg-emerald-500 text-white py-2 px-4 rounded-md hover:bg-emerald-600 transition-colors"
               >
                 {isLoading ? "Cargando..." : "Registrarse"}
               </button>
             </div>
           </form>
         </div>
-        <span className="flex items-center justify-center gap-2 text-[#d1d5db]">
+        <span className="flex items-center justify-center gap-2 text-gray-600">
           <Link className="text-blue-500" to={"/login"}>
             Iniciar sesión
           </Link>
@@ -138,6 +146,7 @@ function Register() {
       </div>
     </div>
   );
+
 }
 
 export default Register;

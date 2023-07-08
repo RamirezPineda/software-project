@@ -31,7 +31,6 @@ function Private() {
         <Route path={PrivateRoutes.MISCUENTOS} element={<ListaCuento />} />
         {/* Ver cuento */}
         <Route path={`${PrivateRoutes.CUENTO}`} element={<VerCuento />} />
-        
       </Route>
       <Route path="*" element={<div>PAGE NOT FOUNT</div>} />
     </Routes>

@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { SWRConfig } from "swr";
 
 import { store } from "./redux/store";
-import { PublicRoutes, PrivateRoutes } from "./constants/routes";
+import { PrivateRoutes } from "./constants/routes";
 
 import Authenticate from "./guards/Authenticate";
 import Loading from "./pages/Loading/Loading";
@@ -22,7 +22,7 @@ function App() {
             <Routes>
               <Route index path="/" element={<Login />} />
               <Route path="/register" element={<Register />} />
-              <Route path="/login" element={<Login />} />
+              <Route path="/login" element={<Login />}/>
               <Route element={<Authenticate />}>
                 <Route
                   path={`${PrivateRoutes.PRIVATE}/*`}
