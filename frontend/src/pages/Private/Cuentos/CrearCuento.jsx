@@ -101,7 +101,12 @@ const CrearCuento = () => {
     };
 
     return (
-        <div style={{ fontFamily: "Belgrano, serif", maxWidth: "600px", margin: "0 auto" }}>
+        <div className="w-full p-12 bg-white shadow-xl rounded-xl max-w-3xl">
+      
+        
+        <div style={{ fontFamily: "Belgrano, serif", maxWidth: "600px", margin: "0 auto",display: "flex",
+        flexDirection: "column",
+        alignItems: "center",}}>
             <h2
                 style={{
                     textAlign: "center",
@@ -113,7 +118,10 @@ const CrearCuento = () => {
             >
                 Configura tu Cuento
             </h2>
-            {isLoading && <p style={{ textAlign: "center" }}>Cargando...</p>}
+            {isLoading  && (
+                
+            <p style={{ textAlign: "center"}}><img className="w-20 h-20" src="https://media.tenor.com/wpSo-8CrXqUAAAAj/loading-loading-forever.gif"
+            />cargando...</p>)}
             {!isLoading && (
                 <form onSubmit={handleSubmit} style={{ marginBottom: "2rem" }}>
                     {hasEmptyFields && <p style={{ color: "red", marginBottom: "1rem", textAlign: "center" }}>Por favor, completa todos los campos antes de continuar.</p>}
@@ -341,6 +349,7 @@ const CrearCuento = () => {
                     )}
                 </form>
             )}
+        </div>
         </div>
     );
 };

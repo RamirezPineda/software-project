@@ -15,7 +15,7 @@ const generarAudio = async (req, res) => {
         OutputS3KeyPrefix: v4(),
         })
         .then((response) => {return res.status(200).json(response);})
-        .catch(err => res.status(500).json(err));
+        .catch(err => res.status(500).json(err).console.log(err));
       
     } catch (error) {
       console.log("ERROR SERVER!", error);

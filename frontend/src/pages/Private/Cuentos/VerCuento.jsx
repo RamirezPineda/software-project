@@ -82,8 +82,8 @@ const VerCuento = () => {
     });
 
     return (
-        <div className="w-full" style={{ fontFamily: "Arial, sans-serif", maxWidth: "1000px", margin: "0 auto", backgroundColor: "#F0F0F0", color: "#333" }}>
-            <div style={{ fontFamily: "Arial, sans-serif", maxWidth: "1000px", margin: "0 auto", backgroundColor: "#F0F0F0", color: "#333", padding: "2rem" }}>
+        <div className="w-full p-12 bg-gradient-to-t from-[#fbc2eb] to-[#a6c1ee] rounded-lg shadow-2xl border-t-2 border-blue-200" >
+            <div style={{ fontFamily: "Arial, sans-serif", maxWidth: "1000px", margin: "0 auto", color: "#333" }}>
                 <HTMLFlipBook ref={flipBookRef} width={800} height={600} size="stretch" minWidth={315} maxWidth={800} minHeight={400} maxHeight={600} maxShadowOpacity={0.5} showCover={true} mobileScrollSupport={true} onFlip={(
                     event
                 ) => console.log("flipped page", event)} onChangeOrientation={(isPortrait) => console.log("orientation", isPortrait)} className="mb-6" style={
