@@ -7,3 +7,4 @@ amazonPilly
 exportarWord
 exportarPdf
 planesPago
+pasarelaPago
