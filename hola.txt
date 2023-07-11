@@ -6,3 +6,4 @@ gestionar perfil
 amazonPilly
 exportarWord
 exportarPdf
+pasarelaPago
