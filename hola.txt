@@ -2,3 +2,4 @@ migraciones
 RegistrarUsuarios
 template
 landing
+gestionar perfil
