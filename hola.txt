@@ -9,3 +9,4 @@ exportarPdf
 planesPago
 pasarelaPago
 suscribirsePlanPago
+actualizarSuscripcion
