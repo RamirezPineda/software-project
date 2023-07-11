@@ -38,7 +38,7 @@ const VerCuento = () => {
         return <p>Cargando el cuento...</p>;
     }
 
-    const { titulo, texto, audio } = cuento;
+    const { imagen, titulo, texto, audio } = cuento;
     const paragraphs = texto.split("\n\n");
     const pages = [];
 
@@ -58,6 +58,23 @@ const VerCuento = () => {
             </div>
         </div>
     );
+    const coverPageImage = (
+        <div key="cover" className="page" style={
+            {
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "100%",
+                width: "100%",
+                backgroundColor: "rgba(8, 187, 182, 1)",
+            }
+        }>
+            <div className="page-container" >
+                <img src={imagen} alt="imagen" style={{ width: "100%", height: "100%" }} />
+            </div>
+        </div>
+    );
+    pages.push(coverPageImage);
     pages.push(coverPage);
 
     paragraphs.forEach((paragraph, index) => {
