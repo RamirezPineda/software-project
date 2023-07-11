@@ -8,3 +8,4 @@ exportarWord
 exportarPdf
 planesPago
 pasarelaPago
+suscribirsePlanPago
