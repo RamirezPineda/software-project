@@ -5,3 +5,4 @@ landing
 gestionar perfil
 amazonPilly
 exportarWord
+exportarPdf
