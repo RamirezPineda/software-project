@@ -6,4 +6,5 @@ gestionar perfil
 amazonPilly
 exportarWord
 exportarPdf
+planesPago
 pasarelaPago
