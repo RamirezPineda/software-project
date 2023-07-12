@@ -86,6 +86,9 @@ const ListaCuento = () => {
                 <div>
                   <strong>Reflexión:</strong> {cuento.reflexion}
                 </div>
+                <div>
+                  <strong>Idioma:</strong> {cuento.idioma}
+                </div>
                 <div className="flex items-center mt-4">
                 <button
                 className="bg-indigo-500 hover:bg-indigo-400 text-white font-bold py-2 px-4 rounded"

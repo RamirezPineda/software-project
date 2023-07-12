@@ -1,9 +1,12 @@
+import { log } from 'console';
 import TextoIA from '../services/textIA.service.js';
 
 const generarTexto = async (req, res) => {
     try {
-        const { personaje, nombrePersonaje, tema, reflexion,narrador, idUser } = req.body;
-        const newTexto = await TextoIA.generarTexto({ personaje, nombrePersonaje, tema, reflexion, narrador,idUser });
+        const { personaje, nombrePersonaje, tema, reflexion,narrador, idioma,nombreIdioma,idUser } = req.body;
+        console.log(idioma);
+        console.log(nombreIdioma);
+        const newTexto = await TextoIA.generarTexto({ personaje, nombrePersonaje, tema, reflexion, narrador,idioma,nombreIdioma,idUser });
         if (!newTexto)
             return res.status(400).json({ message: "El texto no se pudo generar" });
 

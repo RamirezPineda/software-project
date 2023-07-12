@@ -33,6 +33,7 @@ model Cuento {
   texto     String
   audio     String
   imagen    String
+  idioma    String?
   author    User    @relation(fields: [authorId], references: [id])
   authorId  Int
   createdAt DateTime @default(now())

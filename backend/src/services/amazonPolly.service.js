@@ -19,7 +19,19 @@ class TransformerTextToAudio {
 
     transform(params) {
         return this.client.startSpeechSynthesisTask(params).promise()
-    }
+    };
+
+
+    getVoicesAndLanguages() {
+        const params = {
+            Engine: "neural"
+        };
+        return this.client.describeVoices(params).promise()
+
+            
+    };
+
+    
 }
 
 /* new TransformerTextToAudio()

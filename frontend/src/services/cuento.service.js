@@ -8,6 +8,8 @@ const crearCuento = async ({
   tema,
   reflexion,
   narrador,
+  idioma,
+  nombreIdioma,
   idUser,
 }) => {
   const response = await fetch(texToAudioUrl, {
@@ -18,6 +20,8 @@ const crearCuento = async ({
       tema,
       reflexion,
       narrador,
+      idioma,
+      nombreIdioma,
       idUser,
     }),
     headers: { "Content-Type": "application/json" },

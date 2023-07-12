@@ -2,10 +2,12 @@ import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import HTMLFlipBook from "react-pageflip";
 
+
 const VerCuento = () => {
     const { id } = useParams();
     const [cuento, setCuento] = useState(null);
     const flipBookRef = useRef(null);
+    
 
     useEffect(() => {
         const fetchCuento = async () => {
@@ -18,8 +20,11 @@ const VerCuento = () => {
                 console.log(error);
             }
         };
-
+        
         fetchCuento();
+        
+        
+
     }, [id]);
 
     const goToPrevPage = () => {
@@ -48,7 +53,7 @@ const VerCuento = () => {
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                height: "100%",
+                height: "380px",
                 width: "100%",
                 backgroundColor: "rgba(8, 187, 182, 1)",
             }
@@ -64,13 +69,13 @@ const VerCuento = () => {
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                height: "100%",
+                height: "380px",
                 width: "100%",
                 backgroundColor: "rgba(8, 187, 182, 1)",
             }
         }>
             <div className="page-container" >
-                <img src={imagen} alt="imagen" style={{ width: "100%", height: "100%" }} />
+                <img src={imagen} alt="imagen" style={{ width: "500px", height: "380px" }} />
             </div>
         </div>
     );
@@ -99,11 +104,11 @@ const VerCuento = () => {
     });
 
     return (
-        <div className="w-full p-12 bg-gradient-to-t from-[#fbc2eb] to-[#a6c1ee] rounded-lg shadow-2xl border-t-2 border-blue-200" >
+        <div className="w-full p-2 bg-gradient-to-t from-[#fbc2eb] to-[#a6c1ee] rounded-lg shadow-2xl border-t-2 border-blue-200" >
             <div style={{ fontFamily: "Arial, sans-serif", maxWidth: "1000px", margin: "0 auto", color: "#333" }}>
                 <HTMLFlipBook ref={flipBookRef} width={800} height={600} size="stretch" minWidth={315} maxWidth={800} minHeight={400} maxHeight={600} maxShadowOpacity={0.5} showCover={true} mobileScrollSupport={true} onFlip={(
                     event
-                ) => console.log("flipped page", event)} onChangeOrientation={(isPortrait) => console.log("orientation", isPortrait)} className="mb-6" style={
+                ) => console.log("flipped page", event)} onChangeOrientation={(isPortrait) => console.log("orientation", isPortrait)} className="" style={
                     {
                         display: "flex",
                         justifyContent: "center",
