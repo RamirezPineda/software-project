@@ -23,11 +23,19 @@ const generarTexto = async ({
   nombreIdioma,
   idUser,
 }) => {
-  console.log(personaje, nombrePersonaje, tema, reflexion, idioma,nombreIdioma, idUser);
+  console.log(
+    personaje,
+    nombrePersonaje,
+    tema,
+    reflexion,
+    idioma,
+    nombreIdioma,
+    idUser
+  );
   const text = await chatGPTAPI.sendMessage(
     "Creame un cuento con un titulo(El titulo que este de principio todo mayuscula y este entre comillas) y con las siguientes caracteristicas: " +
-    ", idioma en el que debes redactar el cuento: " +
-    nombreIdioma +
+      ", idioma en el que debes redactar el cuento: " +
+      nombreIdioma +
       ", Personaje: " +
       personaje +
       ", Nombre del personaje: " +
@@ -36,7 +44,6 @@ const generarTexto = async ({
       tema +
       ", Reflexion: " +
       reflexion
-      
   );
   const titulo = text.text.split("\n")[0];
   console.log(titulo);
@@ -46,10 +53,12 @@ const generarTexto = async ({
   console.log(texto);
 
   const textPromt = await chatGPTAPI.sendMessage(
-    "Describeme como seria la portada de tu cuento en un solo parrafo" +
-      titulo +
-      " " +
-      texto
+    "Describeme al personaje principal en una situacion como si estuvieras describiendo una imagen en un solo parrafo: " +
+      "\n" +
+      /*       titulo +
+      " " + */
+      texto +
+      "\n"
   );
   console.log(textPromt.text);
 
@@ -62,10 +71,8 @@ const generarTexto = async ({
 
   await new Promise((resolve) => setTimeout(resolve, 15000));
 
-  
   const urlImagen = await getImagenes(imagen.sdGenerationJob.generationId);
   console.log(urlImagen.generations_by_pk.generated_images);
-
 
   const newStory = await prisma.cuento.create({
     data: {
@@ -111,7 +118,7 @@ const generarImagen = async (texto) => {
     scheduler: "DPM_SOLVER",
     public: true,
     negative_prompt:
-      "two heads, two face, out of frame, extra fingers, mutated hands, poorly drawn hands, poorly drawn face, mutation, deformed, ugly, blurry, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, out of frame, ugly, extra limbs, bad anatomy, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, mutated hands, fused fingers, too many fingers, long neck, poorly drawn eyes, double heads, double faces, two heads, two faces, body out of frame, watermark, grainy, clipped, bad proportion, cropped image, blur haze, (watermark) nudity, nipples, deformed face, several hands, too much fingers, deformed face, deformed, malformed, weird, undefined face, weird face, strange face, deformed eyes, deformed iris different iris color, two heads, two faces, teeth, three arms, three hands, closeup, half head, two characters, text, missing hands, missing limbs, words, letters, letter, Clear Face,",
+      "two heads, two face, out of frame, extra fingers, mutated hands, poorly drawn hands, poorly drawn face, mutation, deformed, ugly, blurry, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, out of frame, ugly, extra limbs, bad anatomy, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, mutated hands, fused fingers, too many fingers, long neck, poorly drawn eyes, double heads, double faces, two heads, two faces, body out of frame, watermark, grainy, clipped, bad proportion, cropped image, blur haze, (watermark) nudity, nipples, deformed face, several hands, too much fingers, deformed face, deformed, malformed, weird, undefined face, weird face, strange face, deformed eyes, deformed iris different iris color, two heads, two faces, teeth, three arms, three hands, closeup, half head, two characters, text, missing hands, missing limbs, words, letters, letter, Clear Face",
     promptMagic: true,
     tiling: true,
   });
