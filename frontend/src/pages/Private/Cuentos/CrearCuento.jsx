@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { crearCuento } from "../../../services/cuento.service";
 import { useNavigate } from "react-router-dom";
+import { voces,nombreLenguages } from "../../../services/textToAudio.service";
+
 
 const CrearCuento = () => {
     const [personaje, setPersonaje] = useState("");
@@ -12,12 +14,42 @@ const CrearCuento = () => {
     const [currentStep, setCurrentStep] = useState(1);
     const [isLoading, setIsLoading] = useState(false);
     const [hasEmptyFields, setHasEmptyFields] = useState(false);
+    const [idioma, setIdioma] = useState("");
+    const [nombreIdioma, setnombreIdioma] = useState("");
+    const [listLenguages, setLenguages] = useState([]);
+    const [listVoces, setVoces] = useState([]);
+
+ 
+    const [selectHabilitado, setSelectHabilitado] = useState(false);
+
+    
 
     const user = useSelector((state) => state.user);
     const navigate = useNavigate();
 
-    const handleInputChange = (e) => {
+    useEffect(() => {
+        console.log("useEffect");
+        /* const vocesIdiomaActual =  voces({languageName: "US Spanish"})
+        setVoces(vocesIdiomaActual);  */
+        const obtenerVocesYLenguages = async () => {
+            try {
+              const vocesIdiomaActual = await voces({ languageCode: "es-US" });
+              setVoces(vocesIdiomaActual);
+
+              const data = await nombreLenguages();
+              setLenguages(data);
+            } catch (error) {
+              console.log(error);
+            }
+          };
+      
+          obtenerVocesYLenguages(); 
+
+    }, []);
+
+    const handleInputChange = async(e) => {
         const { name, value } = e.target;
+        
         switch (name) {
             case "personaje":
                 setPersonaje(value);
@@ -33,6 +65,21 @@ const CrearCuento = () => {
                 break;
             case "narrador":
                 setNarrador(value);
+                break;
+            case "idioma":
+                const {text} = e.target.options[e.target.selectedIndex];
+                console.log(text);
+                console.log(value);
+                setIdioma(value);
+                if (value != 'Selecciona un idioma') {
+                    setnombreIdioma(text)
+                    setSelectHabilitado(true);
+                    const vocesIdiomaActual = await voces({ languageCode: value });
+                    setVoces(vocesIdiomaActual);
+                    setNarrador("");
+                }else{
+                    setSelectHabilitado(false);
+                }
                 break;
             default:
                 break;
@@ -50,7 +97,7 @@ const CrearCuento = () => {
         setIsLoading(true); // Inicia la carga
 
         const idUser = user.id;
-        const cuento = { personaje, nombrePersonaje, tema, reflexion, narrador, idUser };
+        const cuento = { personaje, nombrePersonaje, tema, reflexion, narrador,idioma,nombreIdioma, idUser };
 
         try {
             const res = await crearCuento(cuento);
@@ -91,6 +138,9 @@ const CrearCuento = () => {
             return true;
         }
         if (isStepVisible(5) && narrador === "") {
+            return true;
+        }
+        if (isStepVisible(5) && idioma === "") {
             return true;
         }
         return false;
@@ -262,11 +312,44 @@ const CrearCuento = () => {
                         />
                     </label>
                     <label style={{ display: isStepVisible(5) ? "block" : "none", marginBottom: "1rem" }}>
+                        <div style={{ fontSize: "20px", fontWeight: "600", marginBottom: "0.5rem", color: "rgba(8, 187, 182, 1)" }}>Escoge un Idioma:</div>
+                        <select
+                            name="idioma"
+                            value={idioma}
+                            onChange={handleInputChange}
+                            
+                            required={isStepVisible(5)}
+                            style={{
+                                width: "100%",
+                                padding: "0.5rem",
+                                marginBottom: "0.5rem",
+                                textTransform: "capitalize",
+                                accentColor: "#2f3136",
+                                color: "#2f3136",
+                                fontWeight: "600",
+                                fontSize: "18px",
+                                fontFamily: "Belgrano, serif",
+                                letterSpacing: "0.5px",
+                                lineHeight: "1.5",
+                                border: "1px solid #e3e5e8",
+                                borderRadius: "4px",
+                                outline: "none",
+                                transition: "border-color .2s ease-in-out",
+                                backgroundColor: "#ADFFFF",
+                                boxShadow: "0 1px 2px rgba(0,0,0,.1)",
+                            }}
+                        >
+                            <option value="Selecciona un idioma">Selecciona un idioma</option>
+                            {listLenguages.map((lenguage, index) => (
+                                <option key={index} value={lenguage.languageCode}>{lenguage.languageName}</option>
+                            ))};
+                        </select>
                         <div style={{ fontSize: "20px", fontWeight: "600", marginBottom: "0.5rem", color: "rgba(8, 187, 182, 1)" }}>Escoge un narrador:</div>
                         <select
                             name="narrador"
                             value={narrador}
                             onChange={handleInputChange}
+                            disabled={!selectHabilitado}
                             required={isStepVisible(5)}
                             style={{
                                 width: "100%",
@@ -289,8 +372,9 @@ const CrearCuento = () => {
                             }}
                         >
                             <option value="">Selecciona un narrador</option>
-                            <option value="Pedro">Pedro</option>
-                            <option value="Lupe">Lupe</option>
+                            {listVoces.map((voz, index) => (
+                                <option key={index} value={voz}>{voz}</option>
+                            ))};
                         </select>
                     </label>
                     {currentStep > 1 && (

@@ -2,10 +2,12 @@ import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import HTMLFlipBook from "react-pageflip";
 
+
 const VerCuento = () => {
     const { id } = useParams();
     const [cuento, setCuento] = useState(null);
     const flipBookRef = useRef(null);
+    
 
     useEffect(() => {
         const fetchCuento = async () => {
@@ -18,8 +20,11 @@ const VerCuento = () => {
                 console.log(error);
             }
         };
-
+        
         fetchCuento();
+        
+        
+
     }, [id]);
 
     const goToPrevPage = () => {

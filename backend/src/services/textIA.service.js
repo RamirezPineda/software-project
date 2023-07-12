@@ -19,11 +19,16 @@ const generarTexto = async ({
   tema,
   reflexion,
   narrador,
+  idioma,
+  nombreIdioma,
   idUser,
 }) => {
-  console.log(personaje, nombrePersonaje, tema, reflexion, idUser);
+  console.log(personaje, nombrePersonaje, tema, reflexion, idioma,nombreIdioma, idUser);
   const text = await chatGPTAPI.sendMessage(
-    "Creame un cuento con un titulo(El titulo que este de principio todo mayuscula y este entre comillas) y con las siguientes caracteristicas: Personaje: " +
+    "Creame un cuento con un titulo(El titulo que este de principio todo mayuscula y este entre comillas) y con las siguientes caracteristicas: " +
+    ", idioma en el que debes redactar el cuento: " +
+    nombreIdioma +
+      ", Personaje: " +
       personaje +
       ", Nombre del personaje: " +
       nombrePersonaje +
@@ -31,6 +36,7 @@ const generarTexto = async ({
       tema +
       ", Reflexion: " +
       reflexion
+      
   );
   const titulo = text.text.split("\n")[0];
   console.log(titulo);
@@ -47,18 +53,19 @@ const generarTexto = async ({
   );
   console.log(textPromt.text);
 
+  const audio = await generarAudio(text.text, narrador, idioma, "neural");
+  console.log(audio.SynthesisTask.OutputUri);
+
   const imagen = await generarImagen(textPromt.text);
 
   console.log(imagen);
 
   await new Promise((resolve) => setTimeout(resolve, 15000));
 
+  
   const urlImagen = await getImagenes(imagen.sdGenerationJob.generationId);
-
   console.log(urlImagen.generations_by_pk.generated_images);
 
-  const audio = await generarAudio(text.text, narrador, "es-US", "neural");
-  console.log(audio.SynthesisTask.OutputUri);
 
   const newStory = await prisma.cuento.create({
     data: {
@@ -71,6 +78,7 @@ const generarTexto = async ({
       audio: audio.SynthesisTask.OutputUri,
       imagen: urlImagen.generations_by_pk.generated_images[0].url,
       authorId: idUser,
+      idioma: nombreIdioma,
     },
   });
 
