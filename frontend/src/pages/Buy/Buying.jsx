@@ -1,128 +1,164 @@
 import { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { FaCreditCard, FaCalendarAlt, FaLock } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
+import { useUpdateRol } from "../../hooks/userUsers.hook";
+import { BASE_URL, PrivateRoutes } from "../../constants/routes";
+import { loadStripe } from "@stripe/stripe-js";
+import { createUser } from "../../redux/states/user.state";
+import {
+  Elements,
+  CardElement,
+  useStripe,
+  useElements,
+} from "@stripe/react-stripe-js";
+import axios from "axios";
 
-const BuyingPage = () => {
-    const { id } = useParams();
-    const [title, setTitle] = useState("");
+const stripePromise = loadStripe(
+  "pk_test_51LrvMxIrWPjPcAFx82pV1s0FsC5NgPy2rTfgpuKxbNNKDRlrtxPb7vT45FXy5mRvmvfd4Qjz2qdeBGFcG6Po6oSU00f7i8D8v3"
+);
 
-    useEffect(() => {
-        if (id === "1") {
-            setTitle("CuentaCuentos");
-        } else if (id === "2") {
-            setTitle("Educador");
+const CheckoutForm = () => {
+  const dispatch = useDispatch();
+  const stripe = useStripe();
+  const elements = useElements();
+  const [loading, setLoading] = useState(false);
+
+  const { id } = useParams();
+  const [payment, setPayment] = useState([]);
+
+  useEffect(() => {
+    if (id === "1") {
+      setPayment([...payment, "Narrador", "30"]);
+      //setPayment([...payment, "30"]);
+    } else if (id === "2") {
+      setPayment([...payment, "Piloglota", "15"]);
+      //setPayment([...payment, "15"]);
+    }
+  }, [id]);
+
+  const navigate = useNavigate();
+  const user = useSelector((state) => state.user);
+
+  const { updateRol } = useUpdateRol(user.id);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const { error, paymentMethod } = await stripe.createPaymentMethod({
+      type: "card",
+      card: elements.getElement(CardElement),
+      billing_details: {
+        name: user.name,
+        email: user.email,
+      },
+    });
+    setLoading(true);
+
+    if (!error) {
+      const amount = payment[1] * 100;
+      const description = `Pago Usuario ${payment[0]}`;
+      //console.log(paymentMethod)
+      const { id } = paymentMethod;
+      try {
+        const { data } = await axios.post(`${BASE_URL}/api/checkout`, {
+          id,
+          amount, //cents
+          description,
+        });
+        console.log(data);
+
+        elements.getElement(CardElement).clear();
+
+        const rol = payment[0];
+        try {
+          const response = await updateRol({ rol });
+          dispatch(createUser(response));
+          if (response?.id) {
+            console.log("se cambio el rol");
+            navigate(PrivateRoutes.PRIVATE, { replace: true });
+            setMessageError("");
+          } else if (response && "message" in response) {
+            setMessageError(response.message);
+          }
+        } catch (err) {
+          console.log(err);
         }
-    }, [id]);
+      } catch (error) {
+        console.log(error);
+      }
+      setLoading(false);
+    }
+  };
 
-    return (
-        <div className="min-h-screen bg-gray-100">
-            <nav className="bg-white shadow">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex items-center justify-between h-16">
-                        <div className="flex items-center">
-                            <h1 className="text-2xl font-bold text-gray-800">Logo</h1>
-                        </div>
-                        <div className="flex">
-                            <Link
-                                to="/"
-                                className="text-gray-800 hover:text-gray-600 px-4 py-2"
-                            >
-                                Inicio
-                            </Link>
-                            <Link
-                                to="/register"
-                                className="text-gray-800 hover:text-gray-600 px-4 py-2"
-                            >
-                                Register
-                            </Link>
-                            <Link
-                                to="/login"
-                                className="text-gray-800 hover:text-gray-600 px-4 py-2"
-                            >
-                                Login
-                            </Link>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-            <div className="flex flex-col items-center justify-center py-20">
-                <h1 className="text-4xl font-bold mb-8">Realizar Pago: {title}</h1>
-                <div className="max-w-lg bg-white p-8 rounded shadow">
-                    <form>
-                        <div className="mb-4">
-                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="cardNumber">
-                                Número de tarjeta
-                            </label>
-                            <div className="flex items-center border rounded py-2 px-3 shadow-sm">
-                                <FaCreditCard className="text-gray-400 mr-2" />
-                                <input
-                                    className="appearance-none bg-transparent border-none w-full text-gray-700 leading-tight focus:outline-none"
-                                    id="cardNumber"
-                                    type="text"
-                                    pattern="[0-9]{4} [0-9]{4} [0-9]{4} [0-9]{4}"
-                                    inputMode="numeric"
-                                    title="Ingrese un número de tarjeta válido"
-                                    placeholder="0000 0000 0000 0000"
-                                    required
-                                />
-                            </div>
-                        </div>
-                        <div className="mb-4">
-                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="expirationDate">
-                                Fecha de vencimiento
-                            </label>
-                            <div className="flex items-center border rounded py-2 px-3 shadow-sm">
-                                <FaCalendarAlt className="text-gray-400 mr-2" />
-                                <input
-                                    className="appearance-none bg-transparent border-none w-full text-gray-700 leading-tight focus:outline-none"
-                                    id="expirationDate"
-                                    type="tel"
-                                    pattern="(0[1-9]|1[0-2])\/[0-9]{2}"
-                                    inputMode="numeric"
-                                    title="Ingrese una fecha de vencimiento válida (MM/AA)"
-                                    placeholder="MM/AA"
-                                    required
-                                />
-                            </div>
-                        </div>
-                        <div className="mb-4">
-                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="cvv">
-                                CVV
-                            </label>
-                            <div className="flex items-center border rounded py-2 px-3 shadow-sm">
-                                <FaLock className="text-gray-400 mr-2" />
-                                <input
-                                    className="appearance-none bg-transparent border-none w-full text-gray-700 leading-tight focus:outline-none"
-                                    id="cvv"
-                                    type="text"
-                                    pattern="[0-9]{3}"
-                                    inputMode="numeric"
-                                    title="Ingrese un CVV válido (3 dígitos)"
-                                    placeholder="123"
-                                    required
-                                />
-                            </div>
-                        </div>
-                        <div className="mb-4">
-                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="cardHolderName">
-                                Nombre del titular
-                            </label>
+  return (
+    <div className="min-h-screen ">
+      <div className="flex flex-col items-center justify-center py-20">
+        <h1 className="text-2xl font-bold mb-8">
+          Realizar Pago: {payment[0]} {payment[1]} $us
+        </h1>
+        <div className="max-w-lg w-screen bg-white p-8 rounded shadow">
+          <div className="mb-4">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="cardNumber"
+            >
+              Número de tarjeta
+            </label>
+            {/* <div className="flex items-center border rounded py-2 px-3 shadow-sm">
+                            <FaCreditCard className="text-gray-400 mr-2" />
                             <input
-                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                id="cardHolderName"
+                                className="appearance-none bg-transparent border-none w-full text-gray-700 leading-tight focus:outline-none"
+                                id="cardNumber"
                                 type="text"
-                                placeholder="Nombre y Apellido"
+                                pattern="[0-9]{4} [0-9]{4} [0-9]{4} [0-9]{4}"
+                                inputMode="numeric"
+                                title="Ingrese un número de tarjeta válido"
+                                placeholder="0000 0000 0000 0000"
                                 required
                             />
-                        </div>
-                        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
-                            Pagar
-                        </button>
-                    </form>
-                </div>
-            </div>
+                            
+                        </div> */}
+            <CardElement />
+          </div>
+
+          {/* <div className="mb-4">
+                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="cardHolderName">
+                            Nombre Del Titular
+                        </label>
+                        <input
+                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            id="cardHolderName"
+                            type="text"
+                            placeholder="Nombre y Apellido"
+                            required
+                        />
+                    </div> */}
+          <button
+            disabled={!stripe}
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            type="submit"
+            onClick={handleSubmit}
+          >
+            {loading ? (
+              <div className="spinner-border text-light" role="status">
+                <span className="sr-only">Loading...</span>
+              </div>
+            ) : (
+              "Pagar"
+            )}
+          </button>
         </div>
-    );
+      </div>
+    </div>
+  );
 };
 
+const BuyingPage = () => {
+  return (
+    <Elements stripe={stripePromise}>
+      <CheckoutForm />
+    </Elements>
+  );
+};
 export default BuyingPage;

@@ -5,6 +5,7 @@ const EmptyUserState = {
   name: "",
   email: "",
   token: "",
+  rol:"",
 };
 
 const persistLocalStorageUser = (user) => {

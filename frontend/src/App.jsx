@@ -8,8 +8,7 @@ import { PrivateRoutes } from "./constants/routes";
 
 import Authenticate from "./guards/Authenticate";
 import Loading from "./pages/Loading/Loading";
-import BuyPage from "./pages/Buy/Buy";
-import BuyingPage from "./pages/Buy/Buying";
+import LandingPage from "./pages/landing/Landing";
 
 const Register = lazy(() => import("./pages/Register/Register"));
 const Login = lazy(() => import("./pages/Login/Login"));
@@ -22,11 +21,10 @@ function App() {
         <Provider store={store}>
           <BrowserRouter>
             <Routes>
-              <Route index path="/" element={<Login />} />
+              <Route index path="/" element={<LandingPage />} />
               <Route path="/register" element={<Register />} />
               <Route path="/login" element={<Login />}/>
-              <Route path="/buy" element={<BuyPage />} />
-              <Route path="/buy/:id" element={<BuyingPage />} />
+              
               <Route element={<Authenticate />}>
                 <Route
                   path={`${PrivateRoutes.PRIVATE}/*`}

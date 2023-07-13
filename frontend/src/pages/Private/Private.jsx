@@ -10,6 +10,8 @@ import  EditarCuento from "./Cuentos/EditarCuento";
 import CrearCuento from "./Cuentos/CrearCuento";
 import ListaCuento from "./Cuentos/ListaCuento";
 import VerCuento from "./Cuentos/VerCuento";
+import BuyPage from "../Buy/Buy";
+import BuyingPage from "../Buy/Buying";
 
 function Private() {
   return (
@@ -29,6 +31,8 @@ function Private() {
         <Route path={PrivateRoutes.CREARCUENTO} element={<CrearCuento />} />
         <Route path={PrivateRoutes.EDITARCUENTO} element={<EditarCuento />} />
         <Route path={PrivateRoutes.MISCUENTOS} element={<ListaCuento />} />
+        <Route path={PrivateRoutes.PLANES} element={<BuyPage />} />
+        <Route path={PrivateRoutes.BUY} element={<BuyingPage />} />
         {/* Ver cuento */}
         <Route path={`${PrivateRoutes.CUENTO}`} element={<VerCuento />} />
       </Route>

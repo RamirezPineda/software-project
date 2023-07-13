@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { BASE_URL } from "../../../constants/routes";
 
 const ListaCuento = () => {
   const [cuentos, setCuentos] = useState([]);
@@ -13,7 +14,7 @@ const ListaCuento = () => {
       try {
         const id = user.id;
         const response = await fetch(
-          `http://127.0.0.1:3000/api/getTextoUser/${id}`
+          `${BASE_URL}/api/getTextoUser/${id}`
         );
         const data = await response.json();
         setCuentos(data);

@@ -1,26 +1,17 @@
+PORT=3000
 
-
-PORT=
-
-JWT_SECRET=
+JWT_SECRET=password
 
 OPENAI_API_KEY=
 
 LEONARDO_API_KEY=
 
+# MODEL_ID_LEONARDO=
 MODEL_ID_LEONARDO=
 
-BUCKET=
+BUCKET=aws-sw1
 
-AWS_ACCESS_KEY_ID =
+AWS_ACCESS_KEY_ID = AKIA2ZIZSTLVTSZUFPNB
+aws_secret_access_key = 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
 
-aws_secret_access_key =
-
-# This was inserted by `prisma init`:
-# Environment variables declared in this file are automatically made available to Prisma.
-# See the documentation for more detail: https://pris.ly/d/prisma-schema#accessing-environment-variables-from-the-schema
-
-# Prisma supports the native connection string format for PostgreSQL, MySQL, SQLite, SQL Server, MongoDB and CockroachDB.
-# See the documentation for all the connection string options: https://pris.ly/d/connection-strings
-
-DATABASE_URL="postgresql://user:password@localhost:5432/namedatabase?schema=public"
+DATABASE_URL="postgresql://postgres:postgres@localhost:5432/softwarebd?schema=public"

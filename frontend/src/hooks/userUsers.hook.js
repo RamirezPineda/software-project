@@ -8,7 +8,10 @@ import {
   getUser,
   updateUser,
   usersUrl,
+  updateRol,
+  rolUrl
 } from "../services/user.service";
+
 
 const useAllUser = () => {
   const { data, isLoading, error } = useSWR(usersUrl, getAllUsers);
@@ -34,10 +37,19 @@ const useUpdateUser = (id) => {
   return { updateUser: trigger, isMutating, error };
 };
 
+const useUpdateRol = (id) => {
+  const { trigger, isMutating, error } = useSWRMutation(
+    `${rolUrl}/${id}`,
+    updateRol
+  );
+
+  return { updateRol: trigger, isMutating, error };
+};
+
 const useDeleteUser = () => {
   const { trigger, isMutating, error } = useSWRMutation(usersUrl, deleteUser);
 
   return { deleteUser: trigger, isMutating, error };
 };
 
-export { useAllUser, useAddUser, useGetUser, useUpdateUser, useDeleteUser };
+export { useAllUser, useAddUser, useGetUser, useUpdateUser, useDeleteUser,useUpdateRol };

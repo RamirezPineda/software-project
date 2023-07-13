@@ -36,6 +36,7 @@ const login = async ({ email, password }) => {
     name: userFound.name,
     email: userFound.email,
     token,
+    rol:userFound.rol
   };
   return data;
 };
