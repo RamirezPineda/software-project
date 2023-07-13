@@ -9,7 +9,7 @@ export const PrivateRoutes = {
   DASHBOARD: "/dashboard",
   USERS: "/users",
   CREARCUENTO: "/cuento/crear",
-  EDITARCUENTO: "/cuento/editar",
+  EDITARCUENTO: "/cuento/editar/:id",
   MISCUENTOS: "/cuento/mis-cuentos",
   CUENTO: "/cuento/:id",
   AUDIO: "/cuento/audio",

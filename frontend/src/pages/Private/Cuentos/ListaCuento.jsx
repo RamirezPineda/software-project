@@ -58,20 +58,21 @@ const ListaCuento = () => {
       {cuentos.length > 0 && (
       <div className="grid grid-cols-1 gap-12 md:grid-cols-2 xl:grid-cols-3">
         {cuentos.map((cuento) => (
-          <div className="m-auto overflow-hidden rounded-lg shadow-lg cursor-pointer h-90 w-60 md:w-80"
+          <div className="m-auto overflow-hidden rounded-lg shadow-lg cursor-pointer  w-60 md:w-80"
+          /* style={{height: "440px" }} */
             key={cuento.id}
             >
             <a href="#" className="block w-full h-full"
-             onClick={() => {
+             /* onClick={() => {
               // Aquí puedes agregar la lógica para ver el cuento completo
               console.log("Ver cuento:", cuento.id);
               navigate(`/private/cuento/${cuento.id}`);
-              }}
+              }} */
             >
               <img
                 alt="blog photo"
-                src="https://d3ugyf2ht6aenh.cloudfront.net/stores/070/336/products/cuentomicuerpo_abrazo_web1-9942c2dd6494723c0116215250602215-240-0.jpg"
-                className="object-cover w-full max-h-40"
+                src={cuento.imagen}
+                className="object-cover w-full "
               />
               <div className="w-full p-4 bg-white dark:bg-gray-800">
                 <p className="font-medium text-indigo-500 text-md">{cuento.titulo}</p>
@@ -80,19 +81,19 @@ const ListaCuento = () => {
                 </div> 
                 <div>
                 <strong>Nombre del Personaje:</strong> {cuento.nombrePersonaje}
-                </div>
                 <div>
+                  <strong>Idioma:</strong> {cuento.idioma}
+                </div>
+                </div>
+                {/* <div>
                   <strong>Tema:</strong> {cuento.tema}
                 </div>
                 <div>
                   <strong>Reflexión:</strong> {cuento.reflexion}
-                </div>
-                <div>
-                  <strong>Idioma:</strong> {cuento.idioma}
-                </div>
+                </div> */}
                 <div className="flex items-center mt-4">
                 <button
-                className="bg-indigo-500 hover:bg-indigo-400 text-white font-bold py-2 px-4 rounded"
+                className="bg-indigo-500 hover:bg-indigo-400 text-white font-bold py-2 px-4 rounded mr-2"
                 onClick={() => {
                   // Aquí puedes agregar la lógica para ver el cuento completo
                   console.log("Ver cuento:", cuento.id);
@@ -100,6 +101,17 @@ const ListaCuento = () => {
                 }}
                 >
                 Ver
+              </button>
+
+              <button
+                className="bg-indigo-500 hover:bg-indigo-400 text-white font-bold py-2 px-4 rounded"
+                onClick={() => {
+                  // Aquí puedes agregar la lógica para ver el cuento completo
+                  console.log("editar cuento:", cuento.id);
+                  navigate(`/private/cuento/editar/${cuento.id}`);
+                }}
+                >
+                Edit
               </button>
                  
                 </div>

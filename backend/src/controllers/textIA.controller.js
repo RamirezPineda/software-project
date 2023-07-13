@@ -1,5 +1,7 @@
 import { log } from 'console';
 import TextoIA from '../services/textIA.service.js';
+import { PrismaClient } from "@prisma/client";
+
 
 const generarTexto = async (req, res) => {
     try {
@@ -55,4 +57,36 @@ const getTextoUser = async (req, res) => {
     }
 };
 
-export default { generarTexto, getTexto , getTextoUser, getTextos };
+const prisma = new PrismaClient();
+
+const actualizarTexto = async (req, res) => {
+    try {
+        const { id } = req.body;
+        const { personaje, nombrePersonaje,  tema, reflexion, titulo,texto,audio, imagen,  nombreIdioma, idUser } = req.body;
+        const cuentoActual =  await TextoIA.getTexto(parseInt(id));
+        
+        const cuentoActualizado = await prisma.cuento.update({
+            where: {id: parseInt(id) },
+            data: {
+                personaje: personaje,
+                nombrePersonaje: nombrePersonaje,
+                tema: tema,
+                reflexion: reflexion,
+                titulo: titulo,
+                texto: texto,
+                audio: audio,
+                imagen: imagen,
+                authorId: parseInt(idUser) ,
+                idioma: nombreIdioma,
+              },
+          });
+      
+          console.log("Cuento actualizado:", cuentoActualizado);
+          return res.status(200).json(cuentoActualizado);
+    } catch (error) {
+        console.log("Error Server: ", error);
+        return res.status(500).json(error);
+    }
+}
+
+export default { generarTexto, getTexto , getTextoUser, getTextos,actualizarTexto };

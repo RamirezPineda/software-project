@@ -20,12 +20,12 @@ const navigation = [
     current: false,
     key: 3,
   },
-  {
+  /* {
     name: "Editar Cuento",
     href: "/private/cuento/editar",
     current: false,
     key: 4,
-  },
+  }, */
   { name: "Planes", href: "/private/buy", current: false, key: 5 },
 ];
 
