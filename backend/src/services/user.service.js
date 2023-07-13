@@ -47,6 +47,20 @@ const updateUser = async (id, dataUser) => {
   return updatedUser;
 };
 
+const updateRol = async (id, dataUser) => {
+  const existUser = await prisma.user.findUnique({ where: { id } });
+  if (!existUser) return null;
+
+  const updatedUser = await prisma.user.update({
+    where: { id },
+    data: {
+      rol: dataUser.rol      
+    },
+  });
+
+  return updatedUser;
+};
+
 const deleteUser = async (id) => {
   const existUser = await prisma.user.findUnique({ where: { id } });
   if (!existUser) return null;
@@ -55,4 +69,4 @@ const deleteUser = async (id) => {
   return deletedUser;
 };
 
-export default { getAllUsers, addUser, getUser, updateUser, deleteUser };
+export default { getAllUsers, addUser, getUser, updateUser, deleteUser, updateRol};

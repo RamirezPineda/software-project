@@ -8,8 +8,6 @@ import { PrivateRoutes } from "./constants/routes";
 
 import Authenticate from "./guards/Authenticate";
 import Loading from "./pages/Loading/Loading";
-import BuyPage from "./pages/Buy/Buy";
-import BuyingPage from "./pages/Buy/Buying";
 
 const Register = lazy(() => import("./pages/Register/Register"));
 const Login = lazy(() => import("./pages/Login/Login"));
@@ -25,8 +23,7 @@ function App() {
               <Route index path="/" element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="/login" element={<Login />}/>
-              <Route path="/buy" element={<BuyPage />} />
-              <Route path="/buy/:id" element={<BuyingPage />} />
+              
               <Route element={<Authenticate />}>
                 <Route
                   path={`${PrivateRoutes.PRIVATE}/*`}

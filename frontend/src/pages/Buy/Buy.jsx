@@ -1,11 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { Cards } from "./Cards";
 
 const BuyPage = () => {
 
     return (
-        <div className="min-h-screen bg-gray-100">
-            <nav className="bg-white shadow">
+        <div className="min-h-screen ">
+            {/* <nav className="bg-white shadow">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex items-center justify-between h-16">
                         <div className="flex items-center">
@@ -33,12 +34,12 @@ const BuyPage = () => {
                         </div>
                     </div>
                 </div>
-            </nav>
-            <div className="flex flex-col items-center justify-center py-20">
+            </nav> */}
+            {/* <div className="flex flex-col items-center justify-center py-20">
                 <h1 className="text-4xl font-bold mb-8">Seleccione una Suscripción</h1>
                 <div className="grid grid-cols-3 gap-8">
                     <div className="bg-white p-8 rounded shadow">
-                        <h2 className="text-2xl font-bold mb-4">Gratis</h2>
+                        <h2 className="text-2xl font-bold mb-4">Free</h2>
                         <p>Acceso a funciones básicas</p>
                         <br />
                         <Link to="/login" className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
@@ -62,7 +63,8 @@ const BuyPage = () => {
                         </Link>
                     </div>
                 </div>
-            </div>
+            </div> */}
+            <Cards />
         </div>
     );
 };

@@ -67,4 +67,20 @@ const deleteUser = async (req, res) => {
   }
 };
 
-export default { getAllUsers, addUser, getUser, updateUser, deleteUser };
+const paymentUser = async (req, res) => {
+  //return res.status(200).json(req.body);
+  try {
+    const { id } = req.params;
+    const updatedUser = await UserService.updateRol(parseInt(id), req.body);
+
+    if (!updatedUser)
+      return res.status(400).json({ message: "El usuario no existe" });
+
+    return res.status(200).json(updatedUser);
+  } catch (error) {
+    console.log("Error Server: ", error);
+    return es.status(500).json(error);
+  }
+};
+
+export default { getAllUsers, addUser, getUser, updateUser, deleteUser,paymentUser };

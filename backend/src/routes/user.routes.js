@@ -13,4 +13,5 @@ router.put("/users/:id", UserController.updateUser);
 
 router.delete("/users/:id", UserController.deleteUser);
 
+router.put("/paymentUser/:id", UserController.paymentUser);
 export default router;
