@@ -1,5 +1,5 @@
 import React from 'react';
-import Libro from '../../assets/Libro.png'
+import Libro from '../../assets/libro.png'
 import Mago from '../../assets/mago.png'
 import Castillo from '../../assets/castillo.png'
 import { Link, useNavigate } from 'react-router-dom';

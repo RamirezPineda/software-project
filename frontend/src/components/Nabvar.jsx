@@ -1,42 +1,41 @@
-import { Fragment, useEffect, useState } from 'react'
-import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { Fragment } from "react";
+import { Disclosure, Menu, Transition } from "@headlessui/react";
+import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { resetUser } from "../redux/states/user.state";
 
-/*const navigation = [
-  { name: 'Dashboard', href: '/private/dashboard', current: false, key: 1 },
-  { name: 'Crear Cuento', href: '/private/cuento/crear', current: false, key: 2 },
-  { name: 'Mis Cuentos', href: '/private/cuento/mis-cuentos', current: false, key: 3 },
-  { name: 'Editar Cuento', href: '/private/cuento/editar', current: false, key: 4 },
-  { name: 'Planes', href: '/private/buy', current: false, key: 5 },
-]*/
+const navigation = [
+  { name: "Dashboard", href: "/private/dashboard", current: false, key: 1 },
+  {
+    name: "Crear Cuento",
+    href: "/private/cuento/crear",
+    current: false,
+    key: 2,
+  },
+  {
+    name: "Mis Cuentos",
+    href: "/private/cuento/mis-cuentos",
+    current: false,
+    key: 3,
+  },
+  {
+    name: "Editar Cuento",
+    href: "/private/cuento/editar",
+    current: false,
+    key: 4,
+  },
+  { name: "Planes", href: "/private/buy", current: false, key: 5 },
+];
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
+  return classes.filter(Boolean).join(" ");
 }
 
 export default function Nabvar() {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [navigation, setNavigation] = useState([
-    { name: 'Dashboard', href: '/private/dashboard', current: false, key: 1 },
-    { name: 'Crear Cuento', href: '/private/cuento/crear', current: false, key: 2 },
-    { name: 'Mis Cuentos', href: '/private/cuento/mis-cuentos', current: false, key: 3 },
-    { name: 'Editar Cuento', href: '/private/cuento/editar', current: false, key: 4 },
-    { name: 'Planes', href: '/private/buy', current: false, key: 5 },
-  ]);
-  useEffect(() => {
-    if (user.rol != null) {
-      const updatedNavigation = navigation.filter(item => item.key !== 5);
-      setNavigation([...updatedNavigation]);
-    }else{
-      const updatedNavigation = navigation.filter(item => item.key == 5 || item.key == 1);
-      setNavigation([...updatedNavigation]);
-    }    
-  }, [user])
 
   return (
     <Disclosure as="nav" className="bg-white shadow-lg ">
@@ -70,7 +69,39 @@ export default function Nabvar() {
                 </div>
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
-                    {navigation.map((item) => (
+                    {user.rol != null
+                      ? navigation
+                          .filter((item) => item.key !== 5)
+                          .map((item) => (
+                            <NavLink
+                              key={item.key}
+                              to={item.href}
+                              className={({ isActive }) =>
+                                isActive
+                                  ? "flex items-center mb-1 gap-4 py-2 px-4  border-b-2 border-indigo-400"
+                                  : "flex items-center mb-1 gap-4  hover:border-b-2 border-indigo-400  transition-colors py-2 px-4 "
+                              }
+                            >
+                              {item.name}
+                            </NavLink>
+                          ))
+                      : navigation
+                          .filter((item) => item.key == 5 || item.key == 1)
+                          .map((item) => (
+                            <NavLink
+                              key={item.key}
+                              to={item.href}
+                              className={({ isActive }) =>
+                                isActive
+                                  ? "flex items-center mb-1 gap-4 py-2 px-4  border-b-2 border-indigo-400"
+                                  : "flex items-center mb-1 gap-4  hover:border-b-2 border-indigo-400  transition-colors py-2 px-4 "
+                              }
+                            >
+                              {item.name}
+                            </NavLink>
+                          ))}
+
+                    {/* {navigation.map((item) => (
                       < NavLink
                         key={item.key}
                         to={item.href}
@@ -82,7 +113,7 @@ export default function Nabvar() {
                       >
                         {item.name}
                       </NavLink>
-                    ))}
+                    ))} */}
                   </div>
                 </div>
                 {/* <Menu as="div" className="relative ml-3">
@@ -176,7 +207,10 @@ export default function Nabvar() {
                         {({ active }) => (
                           <a
                             href="#"
-                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                            className={classNames(
+                              active ? "bg-gray-100" : "",
+                              "block px-4 py-2 text-sm text-gray-700"
+                            )}
                           >
                             Mi Perfil
                           </a>
@@ -186,7 +220,10 @@ export default function Nabvar() {
                         {({ active }) => (
                           <a
                             href="#"
-                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                            className={classNames(
+                              active ? "bg-gray-100" : "",
+                              "block px-4 py-2 text-sm text-gray-700"
+                            )}
                           >
                             Configuracion
                           </a>
@@ -196,7 +233,10 @@ export default function Nabvar() {
                         {({ active }) => (
                           <a
                             href="#"
-                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                            className={classNames(
+                              active ? "bg-gray-100" : "",
+                              "block px-4 py-2 text-sm text-gray-700"
+                            )}
                             onClick={() => {
                               dispatch(resetUser());
                               navigate("/login", { replace: true });
@@ -220,10 +260,12 @@ export default function Nabvar() {
                   key={item.name}
                   to={item.href}
                   className={classNames(
-                    item.current ? 'bg-gray-900 text-white' : 'text-black hover:bg-gray-700 hover:text-white',
-                    'block rounded-md px-3 py-2 text-base font-medium'
+                    item.current
+                      ? "bg-gray-900 text-white"
+                      : "text-black hover:bg-gray-700 hover:text-white",
+                    "block rounded-md px-3 py-2 text-base font-medium"
                   )}
-                  aria-current={item.current ? 'page' : undefined}
+                  aria-current={item.current ? "page" : undefined}
                 >
                   {item.name}
                 </NavLink>
@@ -231,8 +273,7 @@ export default function Nabvar() {
             </div>
           </Disclosure.Panel>
         </>
-      )
-      }
-    </Disclosure >
-  )
+      )}
+    </Disclosure>
+  );
 }
