@@ -1,12 +1,15 @@
 import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import HTMLFlipBook from "react-pageflip";
+import { useSelector } from "react-redux";
 import { BASE_URL } from "../../../constants/routes";
 
 const VerCuento = () => {
   const { id } = useParams();
   const [cuento, setCuento] = useState(null);
   const flipBookRef = useRef(null);
+
+  const user = useSelector((state) => state.user);
 
   useEffect(() => {
     const fetchCuento = async () => {
@@ -71,29 +74,31 @@ const VerCuento = () => {
       </div>
     </div>
   );
-  const coverPageImage = (
-    <div
-      key="cover"
-      className="page"
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "380px",
-        width: "100%",
-        backgroundColor: "rgba(8, 187, 182, 1)",
-      }}
-    >
-      <div className="page-container">
-        <img
-          src={imagen}
-          alt="imagen"
-          style={{ width: "500px", height: "380px" }}
-        />
-      </div>
-    </div>
-  );
-  pages.push(coverPageImage);
+  {
+    (user.rol === "Narrador" || user.rol === "Piloglota"
+      ? pages.push(
+        <div
+          key="cover"
+          className="page"
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "380px",
+            width: "100%",
+            backgroundColor: "rgba(8, 187, 182, 1)",
+          }}
+        >
+          <div className="page-container">
+            <img
+              src={imagen}
+              alt="imagen"
+              style={{ width: "500px", height: "380px" }}
+            />
+          </div>
+        </div>
+      ) : null)
+  }
   pages.push(coverPage);
 
   paragraphs.forEach((paragraph, index) => {
@@ -221,7 +226,10 @@ const VerCuento = () => {
           marginTop: "1rem",
         }}
       >
-        <audio controls className="mb-6 mr-3" src={audio}></audio>
+        {user.rol === "Narrador" || user.rol === "Piloglota" ? (
+          <audio controls className="mb-6 mr-3" src={audio}></audio>
+        ) : null
+        }
       </div>
     </div>
   );

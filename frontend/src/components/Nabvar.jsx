@@ -4,6 +4,7 @@ import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { resetUser } from "../redux/states/user.state";
+import Book from '../assets/icon-book.png';
 
 const navigation = [
   { name: "Dashboard", href: "/private/dashboard", current: false, key: 1 },
@@ -57,21 +58,32 @@ export default function Nabvar() {
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                 <div className="flex flex-shrink-0 items-center">
                   <img
-                    className="block h-8 w-auto lg:hidden"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                    alt="Your Company"
-                  />
-                  <img
                     className="hidden h-8 w-auto lg:block"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                    src={Book}
                     alt="Your Company"
                   />
                 </div>
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
-                    {user.rol != null
+                    {user.rol == "Narrador"
                       ? navigation
-                          .filter((item) => item.key !== 5)
+                        .filter((item) => item.key !== 5)
+                        .map((item) => (
+                          <NavLink
+                            key={item.key}
+                            to={item.href}
+                            className={({ isActive }) =>
+                              isActive
+                                ? "flex items-center mb-1 gap-4 py-2 px-4  border-b-2 border-indigo-400"
+                                : "flex items-center mb-1 gap-4  hover:border-b-2 border-indigo-400  transition-colors py-2 px-4 "
+                            }
+                          >
+                            {item.name}
+                          </NavLink>
+                        ))
+                      : user.rol == "Piloglota" || user.rol == "CuentaCuentos" ? (
+                        navigation
+                          .filter((item) => item.key == 1 || item.key == 2 || item.key == 3)
                           .map((item) => (
                             <NavLink
                               key={item.key}
@@ -84,22 +96,23 @@ export default function Nabvar() {
                             >
                               {item.name}
                             </NavLink>
-                          ))
-                      : navigation
-                          .filter((item) => item.key == 5 || item.key == 1)
-                          .map((item) => (
-                            <NavLink
-                              key={item.key}
-                              to={item.href}
-                              className={({ isActive }) =>
-                                isActive
-                                  ? "flex items-center mb-1 gap-4 py-2 px-4  border-b-2 border-indigo-400"
-                                  : "flex items-center mb-1 gap-4  hover:border-b-2 border-indigo-400  transition-colors py-2 px-4 "
-                              }
-                            >
-                              {item.name}
-                            </NavLink>
-                          ))}
+                          )))
+                        : (
+                          navigation
+                            .filter((item) => item.key == 5 || item.key == 1)
+                            .map((item) => (
+                              <NavLink
+                                key={item.key}
+                                to={item.href}
+                                className={({ isActive }) =>
+                                  isActive
+                                    ? "flex items-center mb-1 gap-4 py-2 px-4  border-b-2 border-indigo-400"
+                                    : "flex items-center mb-1 gap-4  hover:border-b-2 border-indigo-400  transition-colors py-2 px-4 "
+                                }
+                              >
+                                {item.name}
+                              </NavLink>
+                            )))}
 
                     {/* {navigation.map((item) => (
                       < NavLink
@@ -184,13 +197,17 @@ export default function Nabvar() {
                 {/* Profile dropdown */}
                 <Menu as="div" className="relative ml-3">
                   <div>
-                    <Menu.Button className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                    {/* <Menu.Button className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"> */}
+                    <Menu.Button className="flex rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                       <span className="sr-only">Open user menu</span>
-                      <img
+                      {/* <img
                         className="h-8 w-8 rounded-full"
                         src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                         alt=""
-                      />
+                      /> */}
+                      <label className="text-black">
+                        {user?.name} {user?.lastname}
+                      </label>
                     </Menu.Button>
                   </div>
                   <Transition

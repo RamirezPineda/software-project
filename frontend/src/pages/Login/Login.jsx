@@ -6,6 +6,7 @@ import { PrivateRoutes } from "../../constants/routes";
 
 import { createUser } from "../../redux/states/user.state";
 import { useLogin } from "../../hooks/useAuth.hook";
+import Book from '../../assets/icon-book.png';
 
 function Login() {
   const dispatch = useDispatch();
@@ -47,7 +48,13 @@ function Login() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center">
-              <h1 className="text-2xl font-bold text-gray-800">Logo</h1>
+            <Link to="/" className="flex-shrink-0">
+                            <img
+                                className="hidden h-8 w-auto lg:block"
+                                src={Book}
+                                alt="Your Company"
+                            />
+                        </Link>
             </div>
             <div className="flex">
               <Link
