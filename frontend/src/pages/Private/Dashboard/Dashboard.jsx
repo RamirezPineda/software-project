@@ -1,8 +1,8 @@
 
 function Dashboard() {
   return (
-    <div className="bg-gray-100">
-      <header className="bg-white py-10">
+    <div className="bg-gray-100 w-full p-12 bg-gradient-to-t from-[#fbc2eb] to-[#a6c1ee] rounded-lg shadow-2xl border-t-2 border-blue-200">
+      <header className="border-b-2 border-blue-200 py-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-4xl font-bold text-center text-gray-800">Dashboard</h1>
         </div>

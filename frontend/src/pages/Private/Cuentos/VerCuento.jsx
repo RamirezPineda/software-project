@@ -49,7 +49,7 @@ const VerCuento = () => {
   const coverPage = (
     <div
       key="cover"
-      className="page"
+      className="page rounded-md"
       style={{
         display: "flex",
         justifyContent: "center",
@@ -74,6 +74,36 @@ const VerCuento = () => {
       </div>
     </div>
   );
+
+  const endCover = (
+    <div
+      key="cover"
+      className="page rounded-md"
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "380px",
+        width: "100%",
+        backgroundColor: "rgba(8, 187, 182, 1)",
+      }}
+    >
+      <div className="page-container">
+        <h2
+          style={{
+            textAlign: "center",
+            fontFamily: "Belgrano, serif",
+            fontSize: "2rem",
+            marginBottom: "1rem",
+            color: "#000",
+          }}
+        >
+          Fin
+        </h2>
+      </div>
+    </div>
+  );
+
   {
     (user.rol === "Narrador" || user.rol === "Piloglota"
       ? pages.push(
@@ -105,12 +135,12 @@ const VerCuento = () => {
     const pageContent = (
       <div
         key={index}
-        className="page-content"
+        className="page-content rounded-md"
         style={{
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          backgroundColor: "rgba(250, 181, 21, 1)",
+          backgroundColor: "rgba(250, 250, 250, 250)",
           height: "100%",
           width: "100%",
         }}
@@ -134,6 +164,8 @@ const VerCuento = () => {
     );
     pages.push(pageContent);
   });
+
+  pages.push(endCover);
 
   return (
     <div className="w-full p-2 bg-gradient-to-t from-[#fbc2eb] to-[#a6c1ee] rounded-lg shadow-2xl border-t-2 border-blue-200">
@@ -192,29 +224,13 @@ const VerCuento = () => {
       >
         <button
           onClick={goToPrevPage}
-          style={{
-            backgroundColor: "#4caf50",
-            color: "#fff",
-            padding: "0.5rem 1rem",
-            border: "none",
-            borderRadius: "4px",
-            cursor: "pointer",
-            marginRight: "1rem",
-          }}
+          className="flex-shrink-0 px-4 py-2 text-base font-semibold text-white bg-indigo-400 rounded-lg shadow-md hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-purple-200 mr-2"
         >
           Anterior
         </button>
         <button
           onClick={goToNextPage}
-          style={{
-            backgroundColor: "#4caf50",
-            color: "#fff",
-            padding: "0.5rem 1rem",
-            border: "none",
-            borderRadius: "4px",
-            cursor: "pointer",
-            marginLeft: "1rem",
-          }}
+          className="flex-shrink-0 px-4 py-2 text-base font-semibold text-white bg-indigo-400 rounded-lg shadow-md hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-purple-200 mr-2"
         >
           Siguiente
         </button>

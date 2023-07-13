@@ -59,7 +59,7 @@ const Footer = () => {
             </a>
         </div>
         <div className="text-center text-gray-500 dark:text-gray-200 pt-10 sm:pt-12 font-light flex items-center justify-center">
-            © 2023 CreativeAIStories  - All rights reserved
+            © 2023 CuentaCuentos  - All rights reserved
         </div>
     </div>
 </footer>
