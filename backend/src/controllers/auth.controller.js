@@ -37,4 +37,7 @@ const isAlive = async (req, res) => {
   return res.status(200).json({ message: "is Ok" });
 };
 
+
+
+
 export default { register, login, isAlive };

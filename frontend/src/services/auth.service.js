@@ -25,4 +25,5 @@ const registerNewUser = async (url, { arg }) => {
   return data;
 };
 
+
 export { registerNewUser, login };

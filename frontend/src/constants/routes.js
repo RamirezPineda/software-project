@@ -13,6 +13,8 @@ export const PrivateRoutes = {
   MISCUENTOS: "/cuento/mis-cuentos",
   CUENTO: "/cuento/:id",
   AUDIO: "/cuento/audio",
+  BUY: "/buying/:id",
+  PLANES: "/buy"
 };
 
 export const BASE_URL = "http://localhost:3000"
