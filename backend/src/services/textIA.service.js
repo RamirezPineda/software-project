@@ -61,6 +61,21 @@ const generarTexto = async ({
       texto +
       "\n"
   );
+  let count = 0;
+  let result = "";
+
+  for (let i = 0; i < textPromt.text.length; i++) {
+    if (textPromt.text[i] !== " ") {
+      count++;
+    }
+
+    result += textPromt.text[i];
+
+    if (count === 550) {
+      break;
+    }
+  }
+  textPromt.text = result;
   console.log("Promp: " + textPromt.text);
 
   const audio = await generarAudio(text.text, narrador, idioma, "neural");

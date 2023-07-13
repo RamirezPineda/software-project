@@ -36,8 +36,9 @@ const EditarCuento = () => {
       setCuento(data);
       const { imagen, titulo, texto, audio } = data;
       setAudio(audio);
-
+   
       const vocesIdiomaActual = await voces({ languageCode: data.languageCode });
+      setVoz(data.languageCode);
       setVoces(vocesIdiomaActual);
 
       /* const resp = await nombreLenguages();
@@ -223,6 +224,7 @@ const handleActualizar = async () => {
   
   const handleChangeVoz = (e) => {
     setVoz(e.target.value);
+    console.log(voz);
   };
 
   return (
