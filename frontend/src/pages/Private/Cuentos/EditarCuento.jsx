@@ -10,6 +10,7 @@ import {
 import { nombreLenguages, textToAudio, voces } from "../../../services/textToAudio.service";
 import { useParams } from "react-router-dom";
 import { actualizarCuento } from  "../../../services/cuento.service";
+import { BASE_URL } from "../../../constants/routes";
 
 
 
@@ -30,7 +31,7 @@ const EditarCuento = () => {
   useEffect(() => {
     const fetchCuento = async () => {
     try {
-      const response = await fetch(`http://127.0.0.1:3000/api/getTexto/${id}`);
+      const response = await fetch(`${BASE_URL}/api/getTexto/${id}`);
       const data = await response.json();
       setCuento(data);
       const { imagen, titulo, texto, audio } = data;

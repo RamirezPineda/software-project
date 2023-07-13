@@ -1,14 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import IAImage from '../../assets/ia-image.jpeg';
+import IAImage2 from '../../assets/ia-image2.jpg';
 import Libro from '../../assets/libro.png';
 import Mago from '../../assets/mago.png';
 import Castillo from '../../assets/castillo.png';
 import Book from '../../assets/icon-book.png';
+import Footer from '../../components/Footer';
 
 const LandingPage = () => {
     return (
-        <div className="bg-gray-100">
+        <div className="bg-gray-100  to-[#a6c1ee]">
             <nav className="bg-white py-6">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
                     <div className="flex items-center">
@@ -23,7 +25,7 @@ const LandingPage = () => {
                     </div>
                 </div>
             </nav>
-            <header className="bg-white py-10">
+            <header className="bg-white py-10 ">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <h1 className="text-4xl font-bold text-center text-gray-800">Bienvenido a CuentaCuentos</h1>
                     <p className="mt-2 text-xl text-center text-gray-600">Descubre las Inteligencias Artificiales que generan cuentos, historias y más</p>
@@ -41,7 +43,7 @@ const LandingPage = () => {
                     </div>
 
                     <div className="bg-white rounded-lg shadow-xl p-8">
-                        <img className="w-40 mx-auto mb-6" src={IAImage} alt="Inteligencia Artificial" />
+                        <img className="w-40 mx-auto mb-6" src={IAImage2} alt="Inteligencia Artificial" />
                         <h2 className="text-2xl font-bold text-center text-gray-800">Genera Historias</h2>
                         <p className="text-center text-gray-600 mt-4">Explora un mundo de posibilidades con nuestra Inteligencia Artificial. Crea historias emocionantes y deslumbrantes que capturarán la imaginación de tus lectores.</p>
                     </div>
@@ -111,6 +113,7 @@ const LandingPage = () => {
                     </div>
                 </div>
             </main>
+            <Footer />
         </div>
     );
 };

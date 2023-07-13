@@ -203,7 +203,7 @@ const CrearCuento = () => {
                     <form onSubmit={handleSubmit} style={{ marginBottom: "2rem" }}>
                         {hasEmptyFields && <p style={{ color: "red", marginBottom: "1rem", textAlign: "center" }}>Por favor, completa todos los campos antes de continuar.</p>}
                         <label style={{ display: isStepVisible(1) ? "block" : "none", marginBottom: "1rem" }}>
-                            <div style={{ color: "rgba(8, 187, 182, 1)", fontSize: "20px", fontWeight: "600", marginBottom: "0.5rem" }}>
+                            <div className="text-indigo-500" style={{  fontSize: "20px", fontWeight: "600", marginBottom: "0.5rem" }}>
                                 1. Elige Personaje:
                             </div>
                             <div style={{ color: "#2f3136", fontSize: "18px", fontWeight: "400", marginBottom: "0.5rem" }}>
@@ -219,6 +219,7 @@ const CrearCuento = () => {
                                 onChange={handleInputChange}
                                 maxLength={30}
                                 required={isStepVisible(1)}
+                                className="border-indigo-600 border-2 border-solid rounded-md"
                                 style={{
                                     width: "100%",
                                     padding: "0.5rem",
@@ -231,17 +232,15 @@ const CrearCuento = () => {
                                     fontFamily: "Belgrano, serif",
                                     letterSpacing: "0.5px",
                                     lineHeight: "1.5",
-                                    border: "1px solid #e3e5e8",
                                     borderRadius: "4px",
                                     outline: "none",
-                                    transition: "border-color .2s ease-in-out",
-                                    backgroundColor: "#ADFFFF",
+                                
                                     boxShadow: "0 1px 2px rgba(0,0,0,.1)",
                                 }}
                             />
                         </label>
                         <label style={{ display: isStepVisible(2) ? "block" : "none", marginBottom: "1rem" }}>
-                            <div style={{ fontSize: "20px", fontWeight: "600", marginBottom: "0.5rem", color: "rgba(8, 187, 182, 1)" }}>2. Dale un nombre:</div>
+                            <div className="text-indigo-500" style={{ fontSize: "20px", fontWeight: "600", marginBottom: "0.5rem" }}>2. Dale un nombre:</div>
                             <div style={{ fontSize: "18px", fontWeight: "400", marginBottom: "0.5rem" }}>Puede ser el que tú quieras, incluso el de tu hijo o hija</div>
                             <div style={{ fontSize: "16px", fontWeight: "400", marginBottom: "0.5rem" }}>(0 de 15 caracteres)</div>
                             <input
@@ -249,6 +248,7 @@ const CrearCuento = () => {
                                 name="nombre"
                                 value={nombrePersonaje}
                                 onChange={handleInputChange}
+                                className="border-indigo-600 border-2 border-solid rounded-md"
                                 maxLength={15}
                                 required={isStepVisible(2)}
                                 style={{
@@ -263,17 +263,14 @@ const CrearCuento = () => {
                                     fontFamily: "Belgrano, serif",
                                     letterSpacing: "0.5px",
                                     lineHeight: "1.5",
-                                    border: "1px solid #e3e5e8",
                                     borderRadius: "4px",
                                     outline: "none",
-                                    transition: "border-color .2s ease-in-out",
-                                    backgroundColor: "#ADFFFF",
                                     boxShadow: "0 1px 2px rgba(0,0,0,.1)",
                                 }}
                             />
                         </label>
                         <label style={{ display: isStepVisible(3) ? "block" : "none", marginBottom: "1rem" }}>
-                            <div style={{ fontSize: "20px", fontWeight: "600", marginBottom: "0.5rem", color: "rgba(8, 187, 182, 1)" }}>3. Tema del cuento:</div>
+                            <div className="text-indigo-500" style={{ fontSize: "20px", fontWeight: "600", marginBottom: "0.5rem" }}>3. Tema del cuento:</div>
                             <div style={{ fontSize: "18px", fontWeight: "400", marginBottom: "0.5rem" }}>
                                 Aquí puedes detallar el tema principal del cuento. Ejemplo: Un ratón al que no le gustaba compartir su queso
                             </div>
@@ -284,6 +281,7 @@ const CrearCuento = () => {
                                 onChange={handleInputChange}
                                 maxLength={120}
                                 required={isStepVisible(3)}
+                                className="border-indigo-600 border-2 border-solid rounded-lg"
                                 style={{
                                     width: "100%",
                                     padding: "0.5rem",
@@ -296,17 +294,14 @@ const CrearCuento = () => {
                                     fontFamily: "Belgrano, serif",
                                     letterSpacing: "0.5px",
                                     lineHeight: "1.5",
-                                    border: "1px solid #e3e5e8",
-                                    borderRadius: "4px",
                                     outline: "none",
                                     transition: "border-color .2s ease-in-out",
-                                    backgroundColor: "#ADFFFF",
                                     boxShadow: "0 1px 2px rgba(0,0,0,.1)",
                                 }}
                             />
                         </label>
                         <label style={{ display: isStepVisible(4) ? "block" : "none", marginBottom: "1rem" }}>
-                            <div style={{ fontSize: "20px", fontWeight: "600", marginBottom: "0.5rem", color: "rgba(8, 187, 182, 1)" }}>4. Reflexión:</div>
+                            <div className="text-indigo-500" style={{ fontSize: "20px", fontWeight: "600", marginBottom: "0.5rem" }}>4. Reflexión:</div>
                             <div style={{ fontSize: "18px", fontWeight: "400", marginBottom: "0.5rem" }}>(0 de 120 caracteres)</div>
                             <div style={{ fontSize: "18px", fontWeight: "400", marginBottom: "0.5rem" }}>Esta parte se reserva para la reflexión que se quiere potenciar dentro de la trama.</div>
                             <div style={{ fontSize: "18px", fontWeight: "400", marginBottom: "0.5rem" }}>Ejemplo: Aprender a compartir</div>
@@ -317,6 +312,7 @@ const CrearCuento = () => {
                                 onChange={handleInputChange}
                                 maxLength={120}
                                 required={isStepVisible(4)}
+                                className="border-indigo-600 border-2 border-solid rounded-lg"
                                 style={{
                                     width: "100%",
                                     padding: "0.5rem",
@@ -329,11 +325,7 @@ const CrearCuento = () => {
                                     fontFamily: "Belgrano, serif",
                                     letterSpacing: "0.5px",
                                     lineHeight: "1.5",
-                                    border: "1px solid #e3e5e8",
-                                    borderRadius: "4px",
                                     outline: "none",
-                                    transition: "border-color .2s ease-in-out",
-                                    backgroundColor: "#ADFFFF",
                                     boxShadow: "0 1px 2px rgba(0,0,0,.1)",
                                 }}
                             />
@@ -342,12 +334,13 @@ const CrearCuento = () => {
                             ? (
 
                                 <label style={{ display: isStepVisible(5) ? "block" : "none", marginBottom: "1rem" }}>
-                                    <div style={{ fontSize: "20px", fontWeight: "600", marginBottom: "0.5rem", color: "rgba(8, 187, 182, 1)" }}>Escoge un Idioma:</div>
+                                    <div className="text-indigo-500" style={{ fontSize: "20px", fontWeight: "600", marginBottom: "0.5rem" }}>Escoge un Idioma:</div>
                                     <select
                                         name="idioma"
                                         value={idioma}
                                         onChange={handleInputChange}
                                         required={isStepVisible(5)}
+                                        className="bg-gradient-to-t from-[#fbc2eb] to-[#a6c1ee] bg-indigo-200"
                                         style={{
                                             width: "100%",
                                             padding: "0.5rem",
@@ -361,10 +354,9 @@ const CrearCuento = () => {
                                             letterSpacing: "0.5px",
                                             lineHeight: "1.5",
                                             border: "1px solid #e3e5e8",
-                                            borderRadius: "4px",
+                                            borderRadius: "10px",
                                             outline: "none",
                                             transition: "border-color .2s ease-in-out",
-                                            backgroundColor: "#ADFFFF",
                                             boxShadow: "0 1px 2px rgba(0,0,0,.1)",
                                         }}
                                     >
@@ -373,13 +365,14 @@ const CrearCuento = () => {
                                             <option key={index} value={lenguage.languageCode}>{lenguage.languageName}</option>
                                         ))};
                                     </select>
-                                    <div style={{ fontSize: "20px", fontWeight: "600", marginBottom: "0.5rem", color: "rgba(8, 187, 182, 1)" }}>Escoge un narrador:</div>
+                                    <div className="text-indigo-500" style={{ fontSize: "20px", fontWeight: "600", marginBottom: "0.5rem" }}>Escoge un narrador:</div>
                                     <select
                                         name="narrador"
                                         value={narrador}
                                         onChange={handleInputChange}
                                         disabled={!selectHabilitado}
                                         required={isStepVisible(5)}
+                                        className="bg-gradient-to-t from-[#fbc2eb] to-[#a6c1ee] bg-indigo-200"
                                         style={{
                                             width: "100%",
                                             padding: "0.5rem",
@@ -393,10 +386,9 @@ const CrearCuento = () => {
                                             letterSpacing: "0.5px",
                                             lineHeight: "1.5",
                                             border: "1px solid #e3e5e8",
-                                            borderRadius: "4px",
+                                            borderRadius: "10px",
                                             outline: "none",
                                             transition: "border-color .2s ease-in-out",
-                                            backgroundColor: "#ADFFFF",
                                             boxShadow: "0 1px 2px rgba(0,0,0,.1)",
                                         }}
                                     >
@@ -415,6 +407,7 @@ const CrearCuento = () => {
                                             value={idioma}
                                             onChange={handleInputChange}
                                             required={isStepVisible(5)}
+                                            className="bg-gradient-to-t from-[#fbc2eb] to-[#a6c1ee] bg-indigo-200"
                                             style={{
                                                 width: "100%",
                                                 padding: "0.5rem",
@@ -428,10 +421,9 @@ const CrearCuento = () => {
                                                 letterSpacing: "0.5px",
                                                 lineHeight: "1.5",
                                                 border: "1px solid #e3e5e8",
-                                                borderRadius: "4px",
+                                                borderRadius: "10px",
                                                 outline: "none",
                                                 transition: "border-color .2s ease-in-out",
-                                                backgroundColor: "#ADFFFF",
                                                 boxShadow: "0 1px 2px rgba(0,0,0,.1)",
                                             }}
                                         >
@@ -447,17 +439,7 @@ const CrearCuento = () => {
                             <button
                                 type="button"
                                 onClick={handlePreviousStep}
-                                style={{
-                                    backgroundColor: "#f44336",
-                                    color: "white",
-                                    padding: "0.5rem 1rem",
-                                    border: "none",
-                                    borderRadius: "4px",
-                                    cursor: "pointer",
-                                    marginRight: "1rem",
-                                    fontSize: "18px",
-                                    fontWeight: "600",
-                                }}
+                                className="flex-shrink-0 px-4 py-2 text-base font-semibold text-white bg-indigo-400 rounded-lg shadow-md hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-purple-200 mr-2"
                             >
                                 Anterior
                             </button>
@@ -466,16 +448,7 @@ const CrearCuento = () => {
                             <button
                                 type="button"
                                 onClick={handleNextStep}
-                                style={{
-                                    backgroundColor: "#4caf50",
-                                    color: "white",
-                                    padding: "0.5rem 1rem",
-                                    border: "none",
-                                    borderRadius: "4px",
-                                    cursor: "pointer",
-                                    fontSize: "18px",
-                                    fontWeight: "600",
-                                }}
+                                className="flex-shrink-0 px-4 py-2 text-base font-semibold text-white bg-indigo-400 rounded-lg shadow-md hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-purple-200 "
                             >
                                 Siguiente
                             </button>
@@ -483,16 +456,7 @@ const CrearCuento = () => {
                         {currentStep === 5 && (
                             <button
                                 type="submit"
-                                style={{
-                                    backgroundColor: "#4caf50",
-                                    color: "white",
-                                    padding: "0.5rem 1rem",
-                                    border: "none",
-                                    borderRadius: "4px",
-                                    cursor: "pointer",
-                                    fontSize: "18px",
-                                    fontWeight: "600",
-                                }}
+                                className="flex-shrink-0 px-4 py-2 text-base font-semibold text-white bg-indigo-400 rounded-lg shadow-md hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-purple-200 "
                             >
                                 Crear Cuento
                             </button>
