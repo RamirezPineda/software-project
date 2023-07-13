@@ -103,7 +103,7 @@ const CrearCuento = () => {
             const res = await crearCuento(cuento);
             await new Promise((resolve) => setTimeout(resolve, 20000));
             setIsLoading(false); // Detiene la carga
-            navigate(`/private/cuento/${res.id}`, {replace: true});
+            navigate(`/private/cuento/${res.id}`);
         } catch (error) {
             console.log(error);
             setIsLoading(false); // Detiene la carga en caso de error

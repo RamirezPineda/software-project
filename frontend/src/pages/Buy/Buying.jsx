@@ -1,112 +1,111 @@
 import { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { FaCreditCard, FaCalendarAlt, FaLock } from "react-icons/fa";
-import { useDispatch, useSelector } from 'react-redux';
-import { useUpdateRol } from '../../hooks/userUsers.hook';
-import { PrivateRoutes } from "../../constants/routes";
+import { useDispatch, useSelector } from "react-redux";
+import { useUpdateRol } from "../../hooks/userUsers.hook";
+import { BASE_URL, PrivateRoutes } from "../../constants/routes";
 import { loadStripe } from "@stripe/stripe-js";
 import { createUser } from "../../redux/states/user.state";
 import {
-    Elements,
-    CardElement,
-    useStripe,
-    useElements,
-
+  Elements,
+  CardElement,
+  useStripe,
+  useElements,
 } from "@stripe/react-stripe-js";
 import axios from "axios";
 
-const stripePromise = loadStripe("pk_test_51LrvMxIrWPjPcAFx82pV1s0FsC5NgPy2rTfgpuKxbNNKDRlrtxPb7vT45FXy5mRvmvfd4Qjz2qdeBGFcG6Po6oSU00f7i8D8v3");
+const stripePromise = loadStripe(
+  "pk_test_51LrvMxIrWPjPcAFx82pV1s0FsC5NgPy2rTfgpuKxbNNKDRlrtxPb7vT45FXy5mRvmvfd4Qjz2qdeBGFcG6Po6oSU00f7i8D8v3"
+);
 
 const CheckoutForm = () => {
-    const dispatch = useDispatch();
-    const stripe = useStripe();
-    const elements = useElements();
-    const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const stripe = useStripe();
+  const elements = useElements();
+  const [loading, setLoading] = useState(false);
 
-    const { id } = useParams();
-    const [payment, setPayment] = useState([]);
+  const { id } = useParams();
+  const [payment, setPayment] = useState([]);
 
-    useEffect(() => {
-        if (id === "1") {
-            setPayment([...payment, "Narrador", "30"]);
-            //setPayment([...payment, "30"]);
-        } else if (id === "2") {
-            setPayment([...payment, "Piloglota", "15"]);
-            //setPayment([...payment, "15"]);
-        }
-    }, [id]);
+  useEffect(() => {
+    if (id === "1") {
+      setPayment([...payment, "Narrador", "30"]);
+      //setPayment([...payment, "30"]);
+    } else if (id === "2") {
+      setPayment([...payment, "Piloglota", "15"]);
+      //setPayment([...payment, "15"]);
+    }
+  }, [id]);
 
-    const navigate = useNavigate();
-    const user = useSelector((state) => state.user);
+  const navigate = useNavigate();
+  const user = useSelector((state) => state.user);
 
-    const { updateRol } = useUpdateRol(user.id);
+  const { updateRol } = useUpdateRol(user.id);
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
+    const { error, paymentMethod } = await stripe.createPaymentMethod({
+      type: "card",
+      card: elements.getElement(CardElement),
+      billing_details: {
+        name: user.name,
+        email: user.email,
+      },
+    });
+    setLoading(true);
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-
-        const { error, paymentMethod } = await stripe.createPaymentMethod({
-            type: "card",
-            card: elements.getElement(CardElement),
-            billing_details: {
-                name: user.name,
-                email: user.email
-            }
+    if (!error) {
+      const amount = payment[1] * 100;
+      const description = `Pago Usuario ${payment[0]}`;
+      //console.log(paymentMethod)
+      const { id } = paymentMethod;
+      try {
+        const { data } = await axios.post(`${BASE_URL}/api/checkout`, {
+          id,
+          amount, //cents
+          description,
         });
-        setLoading(true);
+        console.log(data);
 
-        if (!error) {
-            const amount = payment[1] * 100;
-            const description = `Pago Usuario ${payment[0]}`;
-            //console.log(paymentMethod)
-            const { id } = paymentMethod;
-            try {
-                const { data } = await axios.post(
-                    "http://localhost:3000/api/checkout",
-                    {
-                        id,
-                        amount, //cents
-                        description
-                    }
-                );
-                console.log(data);
+        elements.getElement(CardElement).clear();
 
-                elements.getElement(CardElement).clear();
-
-                const rol = payment[0];
-                try {                
-                    const response = await updateRol({ rol });                    
-                    dispatch(createUser(response));
-                    if (response?.id) {
-                        console.log("se cambio el rol");
-                        navigate(PrivateRoutes.PRIVATE, { replace: true });
-                        setMessageError("");
-                    } else if (response && "message" in response) {
-                        setMessageError(response.message);
-                    }
-                } catch (err) {
-                    console.log(err);
-                }
-
-            } catch (error) {
-                console.log(error);
-            }
-            setLoading(false);
+        const rol = payment[0];
+        try {
+          const response = await updateRol({ rol });
+          dispatch(createUser(response));
+          if (response?.id) {
+            console.log("se cambio el rol");
+            navigate(PrivateRoutes.PRIVATE, { replace: true });
+            setMessageError("");
+          } else if (response && "message" in response) {
+            setMessageError(response.message);
+          }
+        } catch (err) {
+          console.log(err);
         }
-    };
+      } catch (error) {
+        console.log(error);
+      }
+      setLoading(false);
+    }
+  };
 
-    return (
-        <div className="min-h-screen ">
-            <div className="flex flex-col items-center justify-center py-20">
-                <h1 className="text-2xl font-bold mb-8">Realizar Pago: {payment[0]} {payment[1]} $us</h1>
-                <div className="max-w-lg w-screen bg-white p-8 rounded shadow">
-
-                    <div className="mb-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="cardNumber">
-                            Número de tarjeta
-                        </label>
-                        {/* <div className="flex items-center border rounded py-2 px-3 shadow-sm">
+  return (
+    <div className="min-h-screen ">
+      <div className="flex flex-col items-center justify-center py-20">
+        <h1 className="text-2xl font-bold mb-8">
+          Realizar Pago: {payment[0]} {payment[1]} $us
+        </h1>
+        <div className="max-w-lg w-screen bg-white p-8 rounded shadow">
+          <div className="mb-4">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="cardNumber"
+            >
+              Número de tarjeta
+            </label>
+            {/* <div className="flex items-center border rounded py-2 px-3 shadow-sm">
                             <FaCreditCard className="text-gray-400 mr-2" />
                             <input
                                 className="appearance-none bg-transparent border-none w-full text-gray-700 leading-tight focus:outline-none"
@@ -120,10 +119,10 @@ const CheckoutForm = () => {
                             />
                             
                         </div> */}
-                        <CardElement />
-                    </div>
+            <CardElement />
+          </div>
 
-                    {/* <div className="mb-4">
+          {/* <div className="mb-4">
                         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="cardHolderName">
                             Nombre Del Titular
                         </label>
@@ -135,30 +134,31 @@ const CheckoutForm = () => {
                             required
                         />
                     </div> */}
-                    <button disabled={!stripe} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit" onClick={handleSubmit}>
-                        {loading ? (
-                            <div className="spinner-border text-light" role="status">
-                                <span className="sr-only">Loading...</span>
-                            </div>
-                        ) : (
-                            "Pagar"
-                        )}
-                    </button>
-
-                </div>
-            </div>
+          <button
+            disabled={!stripe}
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            type="submit"
+            onClick={handleSubmit}
+          >
+            {loading ? (
+              <div className="spinner-border text-light" role="status">
+                <span className="sr-only">Loading...</span>
+              </div>
+            ) : (
+              "Pagar"
+            )}
+          </button>
         </div>
-    );
+      </div>
+    </div>
+  );
 };
 
 const BuyingPage = () => {
-
-    return (
-
-        <Elements stripe={stripePromise}>
-            <CheckoutForm />
-        </Elements>
-
-    );
+  return (
+    <Elements stripe={stripePromise}>
+      <CheckoutForm />
+    </Elements>
+  );
 };
 export default BuyingPage;
