@@ -28,6 +28,7 @@ const generarTexto = async ({
     nombrePersonaje,
     tema,
     reflexion,
+    narrador,
     idioma,
     nombreIdioma,
     idUser
@@ -53,14 +54,14 @@ const generarTexto = async ({
   console.log(texto);
 
   const textPromt = await chatGPTAPI.sendMessage(
-    "Describeme al personaje principal en una situacion como si estuvieras describiendo una imagen en un solo parrafo: " +
+    "Describeme al personaje principal en una situacion como si estuvieras describiendo una imagen en un solo parrafo no mas de 500 caracteres: " +
       "\n" +
       /*       titulo +
       " " + */
       texto +
       "\n"
   );
-  console.log(textPromt.text);
+  console.log("Promp: " + textPromt.text);
 
   const audio = await generarAudio(text.text, narrador, idioma, "neural");
   console.log(audio.SynthesisTask.OutputUri);
