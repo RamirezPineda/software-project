@@ -14,8 +14,9 @@ const VerCuento = () => {
             try {
                 const response = await fetch(`http://127.0.0.1:3000/api/getTexto/${id}`);
                 const data = await response.json();
-                console.log(data.texto);
+                //console.log(data.texto);
                 setCuento(data);
+
             } catch (error) {
                 console.log(error);
             }

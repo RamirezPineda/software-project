@@ -10,7 +10,7 @@ const navigation = [
   /* { name: 'Users', href: '/private/users', current: false }, */
   { name: 'Crear Cuento', href: '/private/cuento/crear', current: false ,key:2},
   { name: 'Mis Cuentos', href: '/private/cuento/mis-cuentos', current: false,key:3},
-    { name: 'Editar Cuento', href: '/private/cuento/editar', current: false, key:4 },
+    //{ name: 'Editar Cuento', href: '/private/cuento/editar', current: false, key:4 },
 ]
 
 function classNames(...classes) {

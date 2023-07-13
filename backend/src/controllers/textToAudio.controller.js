@@ -30,6 +30,7 @@ const getVoces = async (req, res) => {
         const { languageCode } = req.body;
         new amazonPolly().getVoicesAndLanguages().then(
             (response) => {
+              
               const voices = response.Voices.filter(voice => voice.LanguageCode === languageCode);
               const voiceName = voices.map(voice => quitarAcentos(voice.Name));
               return res.status(200).json(voiceName);

@@ -79,6 +79,7 @@ const generarTexto = async ({
       imagen: urlImagen.generations_by_pk.generated_images[0].url,
       authorId: idUser,
       idioma: nombreIdioma,
+      languageCode: idioma,
     },
   });
 

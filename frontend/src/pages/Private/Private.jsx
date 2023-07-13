@@ -6,7 +6,7 @@ import MainContent from "../../components/MainContent";
 
 const Dashboard = lazy(() => import("./Dashboard/Dashboard"));
 const Users = lazy(() => import("./Users/Users"));
-import { EditarCuento } from "./Cuentos/EditarCuento";
+import  EditarCuento from "./Cuentos/EditarCuento";
 import CrearCuento from "./Cuentos/CrearCuento";
 import ListaCuento from "./Cuentos/ListaCuento";
 import VerCuento from "./Cuentos/VerCuento";
